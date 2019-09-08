@@ -45,6 +45,7 @@
                                                     <option value="pertamax">Pertamax</option>
                                                     <option value="pertamax turbo">Pertamax Turbo</option>
                                                     <option value="pertalite">Pertalite</option>
+                                                    <option value="pertadex">Pertadex</option>
                                                     <option value="premium">Premium</option>
                                                     <option value="fame">Fame</option>
                                                     <option value="solar">Solar</option>

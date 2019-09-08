@@ -10,7 +10,7 @@ use App\SpesificReport;
 
 class TestReportController extends Controller
 {
-    private $option = ['pertamax', 'pertamax turbo', 'pertalite', 'premium', 'fame', 'solar'];
+    private $option = ['pertamax', 'pertamax turbo', 'pertalite', 'pertadex', 'premium', 'fame', 'solar'];
 
     public function index() {
         $master = TestReport::where('master', 'true')->latest()->get();
