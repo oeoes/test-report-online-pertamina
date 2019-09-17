@@ -60,7 +60,7 @@ class SpesificReportController extends Controller
         // get nama produk doang
         $produk = TestReport::where('flag', $flag)->first();
         
-        $pdf = PDF::loadView('templates.test-report', ['data' => $data, 'produk' => $produk->produk, 'date' => $month->format('d').' '.$bulan[$month->format('m')].' '.$month->format('Y')]);
+        $pdf = PDF::loadView('templates.test-report', ['data' => $data, 'produk' => $produk->produk, 'date' => $month->format('d').' '.$bulan[ltrim($month->format('m'), 0)].' '.$month->format('Y')]);
         return $pdf->stream('Test report.pdf');
     }
 }

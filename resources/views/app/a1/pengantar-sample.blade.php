@@ -48,6 +48,8 @@
                                                     <option value="premium">Premium</option>
                                                     <option value="fame">Fame</option>
                                                     <option value="solar">Solar</option>
+                                                    <option value="biosolar">Biosolar</option>
+                                                    <option value="dexlite">Dexlite</option>
                                                 </select>
                                             </div>
                                         </div>
