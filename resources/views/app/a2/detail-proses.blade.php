@@ -63,12 +63,12 @@
                                     <tr>
                                         <th class="text-muted">Owner</th>
                                         <th class="text-muted sortable" data-toggle-class="asc">Name</th>
-                                        <th class="text-muted"><span class="d-none d-sm-block">No Surat</span></th>
                                         <th class="text-muted"><span class="d-none d-sm-block">Produk</span></th>
                                         <th class="text-muted"><span class="d-none d-sm-block">Asal Sample</span></th>
                                         <th class="text-muted"><span class="d-none d-sm-block">Jenis Sample</span></th>
                                         <th class="text-muted"><span class="d-none d-sm-block">Rencana/Tgl Pengambilan</span></th>
                                         <th class="text-muted"><span class="d-none d-sm-block">Jenis Test</span></th>
+                                        <th class="text-muted"><span class="d-none d-sm-block">Progress</span></th>
                                         <th class="text-muted"><span class="d-none d-sm-block">Status</span></th>
                                     </tr>
                                 </thead>
@@ -84,39 +84,45 @@
                                             </div>
                                         </td>
                                         <td class="flex">
-                                            <a href="music.detail.html" class="item-title text-color ">{{ ucwords($d->type) }}</a>
+                                            <a href="{{ route('details.show', $d->id) }}" class="item-title text-color ">{{ ucwords($d->type) }}</a>
                                             <div class="item-except text-muted text-sm h-1x">
-                                                {{ $d->type }}
+                                                {{ $d->no_surat }}
                                             </div>
                                         </td>
                                         <td>
-                                            <span class="item-amount d-none d-sm-block text-sm ">
-                                                {{ $d->no_surat }}
+                                            <span class="item-amount d-none d-sm-block text-sm">
+                                                {{ ucwords($d->produk) }}
                                             </span>
                                         </td>
                                         <td>
                                             <span class="item-amount d-none d-sm-block text-sm">
-                                                {{ $d->produk }}
+                                                {{ ucwords($d->asal_sample) }}
                                             </span>
                                         </td>
                                         <td>
                                             <span class="item-amount d-none d-sm-block text-sm">
-                                                {{ $d->asal_sample }}
+                                                {{ ucwords($d->jenis_sample) }}
                                             </span>
                                         </td>
                                         <td>
                                             <span class="item-amount d-none d-sm-block text-sm">
-                                                {{ $d->jenis_sample }}
+                                                <i data-feather='calendar'></i> {{ $d->tgl }} <i data-feather='clock'></i> {{ $d->waktu }}
                                             </span>
                                         </td>
                                         <td>
                                             <span class="item-amount d-none d-sm-block text-sm">
-                                                {{ $d->tgl }}
+                                                {{ ucwords($d->jenis_test) }}
                                             </span>
                                         </td>
                                         <td>
                                             <span class="item-amount d-none d-sm-block text-sm">
-                                                {{ $d->jenis_test }}
+                                                @if($d->progress == 'waiting')
+                                                <span class="badge badge-warning text-uppercase p-1">{{ $d->progress }}</span>
+                                                @elseif($d->progress == 'released')
+                                                <span class="badge badge-primary text-uppercase p-1">{{ $d->progress }} <i data-feather='check-circle'></i></span>
+                                                @else
+                                                <span class="badge badge-info text-uppercase p-1">{{ $d->progress }}</span>
+                                                @endif
                                             </span>
                                         </td>
                                         <td>
@@ -129,38 +135,8 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="d-flex">
-                            <ul class="pagination">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <span aria-hidden="true">«</span>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                </li>
-                                <li class="page-item active">
-                                    <a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">2</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">3</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">4</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">5</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <span aria-hidden="true">»</span>
-                                        <span class="sr-only">Next</span>
-                                    </a>
-                                </li>
-                            </ul>
-                            <small class="text-muted py-2 mx-2">Total <span id="count">15</span> items</small>
-                        </div>
+                        <!-- pagination -->
+                        {{ $detail }}
                     </div>
                 </div>
             </div>

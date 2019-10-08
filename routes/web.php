@@ -12,11 +12,14 @@
 */
 
 Route::get('/', function() {
-    return redirect('/users');
+    return redirect('/login/page');
 });
 
 Route::prefix('app')->middleware('auth')->group(function() {
     Route::get('home', 'AuthController@home')->name('home');
+
+    // maintainer
+    Route::resource('users', 'UserController');
 
     // permintaan pengujian
     Route::resource('requests', 'TestRequestController');
@@ -29,7 +32,10 @@ Route::prefix('app')->middleware('auth')->group(function() {
     // monitoring kegiatan
     Route::resource('inboxes', 'InboxController');
     Route::get('inboxes/refuse/{id}', 'InboxController@refuseRequest')->name('inboxes.refuse');
+
+    // detail
     Route::resource('details', 'DetailProcessController');
+    Route::get('change/details/{id}/{type}', 'DetailProcessController@changeState')->name('details.change.state');
 
     // test report
     Route::resource('reports', 'TestReportController');
@@ -42,7 +48,30 @@ Route::prefix('app')->middleware('auth')->group(function() {
     Route::get('reports/test/after', 'TestReportController@afterReceived')->name('reports.after');
     Route::get('reports/test/coq', 'TestReportController@coq')->name('reports.coq');
     Route::get('reports/test/distribution', 'TestReportController@distribution')->name('reports.distribution');
+
+    // test report --> bundle record
+    Route::post('repports/test/bundle', 'TestReportController@bundleRecord')->name('reports.bundle');
+
+    // spesific report
+    Route::resource('spesific-reports', 'SpesificReportController');
+    Route::get('spesific-reports/{flag}/show/{type}/detail', 'SpesificReportController@showSpesificReport')->name('spesific-reports.show-detail');
+    Route::get('spesific-reports/{flag}/request/print', 'SpesificReportController@requestPrint')->name('spesific-reports.request-print');
+    // spesific report --> download test report
+    Route::get('spesific-reports/report/{flag}/print', 'SpesificReportController@printTestReport')->name('spesific-reports.print');
+    
+    // parameter
+    Route::resource('parameters', 'ParameterController');
+
+    // graphic
+    Route::get('graphics/category/{flag?}', 'GraphicController@reportCategory')->name('graphics.category');
+    Route::get('graphics/before/{from?}/{to?}', 'GraphicController@before')->name('graphics.before');
+    Route::get('graphics/coq/{from?}/{to?}', 'GraphicController@coq')->name('graphics.coq');
+    Route::get('graphics/after/{from?}/{to?}', 'GraphicController@after')->name('graphics.after');
+    Route::get('graphics/distribution/{from?}/{to?}', 'GraphicController@distribution')->name('graphics.distribution');
 });
 Route::get('signout', 'AuthController@signOut')->name('user.signout');
 Route::post('login', 'AuthController@login')->name('user.login');
-Route::resource('users', 'AuthController');
+Route::get('login/page', 'AuthController@index')->name('user.login.page');
+Route::get('join/page', 'AuthController@joinPage')->name('user.join.page');
+Route::post('join', 'AuthController@join')->name('user.join');
+Route::post('complete', 'AuthController@completeUser')->name('user.complete');

@@ -18,11 +18,12 @@ use Illuminate\Support\Str;
 
 $factory->define(User::class, function (Faker $faker) {
     return [
-        'name' => 'User A1',
-        'email' => $faker->safeEmail,
-        'role' => 'a1',
+        'name' => 'Maintainer',
+        'email' => 'maintainer@pertamina.com',
+        'role' => 'maintainer',
         'email_verified_at' => now(),
-        'password' => bcrypt('password'),
+        'password' => bcrypt('maintainerkey'),
         'remember_token' => Str::random(10),
+        'status' => 'verified'
     ];
 });

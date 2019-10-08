@@ -21,8 +21,14 @@ class CreateTestReportsTable extends Migration
             $table->string('unit');
             $table->string('limit_min');
             $table->string('limit_max');
-            $table->enum('type', ['master', 'before', 'after', 'coq', 'distribution']);
+            $table->enum('master', ['true', 'false']);
             $table->string('result')->nullable();
+            $table->string('tag')->nullable();
+            $table->string('flag')->nullable();
+            $table->string('before_value')->nullable();
+            $table->string('after_value')->nullable();
+            $table->string('distribution_value')->nullable();
+            $table->string('coq_value')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->string('user_email');
             $table->timestamps();

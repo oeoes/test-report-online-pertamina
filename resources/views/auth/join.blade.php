@@ -5,10 +5,10 @@
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <div class="card border-0 shadow-sm p-3 mt-5">
-                    <div class="h3 text-center">Login</div>
-                    <span class="text-muted text-center">Login to Golab Pertamina</span>
+                    <div class="h3 text-center">Join</div>
+                    <span class="text-muted text-center">Join using invited email address</span>
                     <hr>
-                    <form action="{{ route('user.login') }}" method="post">
+                    <form action="{{ route('user.join') }}" method="post">
                         @csrf
                         <div class="form-group">
                             <label for="email">Email</label>
@@ -16,17 +16,11 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="password">Password</label>
-                            <input name="password" type="password" class="form-control" placeholder="password..." required>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="submit" class="btn btn-primary" value="Masuk">
+                            <input type="submit" class="btn btn-primary btn-block" value="Join">
                         </div>
                     </form>
-                    <a href="{{ route('user.join.page') }}">Join</a>
                     @if($errors->any())
-                        
+                        <div class="display-1">{{ $errors }}</div>
                     @endif
                 </div>
             </div>

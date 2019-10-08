@@ -26,18 +26,10 @@
                         data-pagination="true" data-page-list="[10, 25, 50, 100, ALL]">
                         <thead>
                             <tr>
-                                <th data-sortable="true" data-field="id">ID</th>
                                 <th data-sortable="true" data-field="owner">Owner</th>
                                 <th data-sortable="true" data-field="produk">Produk</th>
-                                <th data-sortable="true" data-field="produk">Parameter</th>
-                                <th data-sortable="true" data-field="produk">Method test</th>
-                                <th data-sortable="true" data-field="produk">Unit</th>
-                                <th data-sortable="true" data-field="produk">Limitation min</th>
-                                <th data-sortable="true" data-field="produk">Limitation max</th>
-                                <th data-sortable="true" data-field="produk">Result</th>
-                                <th data-field="upload"><span class="d-none d-sm-block">Uploaded by</span></th>
+                                <th data-sortable="true" data-field="produk">Issuer</th>
                                 <th data-field="date"><span class="d-none d-sm-block">Date</span></th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -47,61 +39,28 @@
                             </tr>
                             @else
                             @foreach($before as $b)
-                            <tr class="" data-id="17">
-                                <td style="min-width:30px;text-align:center">
-                                    <small class="text-muted">{{ $b->id }}</small>
-                                </td>
+                            <tr class="" data-id="{{ $b->id }}">
                                 <td>
-                                    <a href="music.detail.html">
+                                    <a href="{{ route('spesific-reports.show-detail', ['flag' => $b->flag, 'type' => 'before']) }}">
                                         <span class="w-32 avatar gd-warning">
-                                            {{ strtoupper($b->user_email[0]) }}
+                                            {{ strtoupper($b->issuer[0]) }}
                                         </span>
                                     </a>
                                 </td>
                                 <td class="flex">
-                                    <a href="music.detail.html" class="item-title text-color ">{{ ucwords($b->produk) }}</a>
+                                    <a href="{{ route('spesific-reports.show-detail', ['flag' => $b->flag, 'type' => 'before']) }}" class="item-title text-color ">{{ ucwords($b->produk) }}</a>
                                     <div class="item-except text-muted text-sm h-1x">
-                                        AI wil
+                                        {{ $b->issuer }}
                                     </div>
                                 </td>
                                 <td>
                                     <span class="item-amount d-none d-sm-block text-sm ">
-                                        {{ $b->parameter }}
+                                        {{ $b->issuer }}
                                     </span>
                                 </td>
                                 <td>
                                     <span class="item-amount d-none d-sm-block text-sm [object Object]">
-                                        {{ $b->metode }}
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="item-amount d-none d-sm-block text-sm ">
-                                        {{ $b->unit }}
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="item-amount d-none d-sm-block text-sm [object Object]">
-                                        {{ $b->limit_min }}
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="item-amount d-none d-sm-block text-sm [object Object]">
-                                        {{ $b->limit_max }}
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="item-amount d-none d-sm-block text-sm [object Object]">
-                                        {{ $b->result }}
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="item-amount d-none d-sm-block text-sm ">
-                                        {{ $b->user_email }}
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="item-amount d-none d-sm-block text-sm [object Object]">
-                                        {{ $b->created_at }}
+                                        {{ $b->created_at->diffForHumans() }}
                                     </span>
                                 </td>
                                 <td>
@@ -128,6 +87,8 @@
                             @endif
                         </tbody>
                     </table>
+                    <!-- pagination -->
+                    {{ $before }}
                 </div>
             </div>
         </div>

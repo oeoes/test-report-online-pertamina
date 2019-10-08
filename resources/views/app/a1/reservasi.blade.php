@@ -36,22 +36,18 @@
                                     
                                     <form action="{{ route('reservations.store') }}" method="post">
                                         @csrf
-                                        <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">No Surat</label>
-                                            <div class="col-sm-8">
-                                                <input name="no_surat" type="text" class="form-control">
-                                            </div>
-                                        </div>
 
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Produk</label>
                                             <div class="col-sm-8">
-                                                <select name="produk" class="custom-select">
+                                                <select name="produk" class="custom-select" required>
                                                     <option disabled selected>Choose desired product</option>
                                                     <option value="pertamax">Pertamax</option>
                                                     <option value="pertamax turbo">Pertamax Turbo</option>
                                                     <option value="pertalite">Pertalite</option>
                                                     <option value="premium">Premium</option>
+                                                    <option value="fame">Fame</option>
+                                                    <option value="solar">Solar</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -59,15 +55,23 @@
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Asal Sample</label>
                                             <div class="col-sm-8">
-                                                <input name="asal_sample" type="text" class="form-control">
+                                                <input name="asal_sample" type="text" class="form-control" required>
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Rencana Pengambilan</label>
                                             <div class="col-sm-8">
-                                                <input name="tgl" id="event-start-date" type="date" class="form-control"
+                                                <input name="tgl" id="event-start-date" type="date" class="form-control required"
                                                     placeholder="Date">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label">Waktu Pengambilan</label>
+                                            <div class="col-sm-8">
+                                                <input name="waktu" id="event-start-date" type="time" class="form-control required"
+                                                    placeholder="Time">
                                             </div>
                                         </div>
 
@@ -75,13 +79,13 @@
                                             <label class="col-sm-4 col-form-label">Jenis Test</label>
                                             <div class="col-sm-8">
                                                 <label class="md-check">
-                                                    <input value="QQ ITP" type="radio" name="jenis_test" checked="">
+                                                    <input value="complete test" type="radio" name="jenis_test" checked="" required>
                                                     <i class="blue"></i>
                                                     Complete Test
                                                 </label>
 
                                                 <label class="md-check">
-                                                    <input value="QQ PLP" type="radio" name="jenis_test" checked="">
+                                                    <input value="short test" type="radio" name="jenis_test" checked="" required>
                                                     <i class="blue"></i>
                                                     Short Test
                                                 </label>
@@ -89,9 +93,9 @@
                                         </div>
 
                                         <!-- type -->
-                                        <input type="hidden" name="type" value="reservasi">
+                                        <input type="hidden" name="type" value="reservasi" required>
                                         <div class="form-group">
-                                            <input type="submit" class="btn btn-primary" value="Submit">
+                                            <input type="submit" class="btn btn-primary" value="Submit" required>
                                         </div>
                                     </form>
 

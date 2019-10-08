@@ -37,13 +37,6 @@
                                     <form action="{{ route('requests.store') }}" method="post">
                                         @csrf
                                         <div class="form-group row">
-                                            <label class="col-sm-4 col-form-label">No Surat</label>
-                                            <div class="col-sm-8">
-                                                <input name="no_surat" type="text" class="form-control">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Produk</label>
                                             <div class="col-sm-8">
                                                 <select name="produk" class="custom-select">
@@ -52,6 +45,8 @@
                                                     <option value="pertamax turbo">Pertamax Turbo</option>
                                                     <option value="pertalite">Pertalite</option>
                                                     <option value="premium">Premium</option>
+                                                    <option value="fame">Fame</option>
+                                                    <option value="solar">Solar</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -59,14 +54,14 @@
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Asal Sample</label>
                                             <div class="col-sm-8">
-                                                <input name="asal_sample" type="text" class="form-control">
+                                                <input name="asal_sample" type="text" class="form-control" required>
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Jenis Sample</label>
                                             <div class="col-sm-8">
-                                                <input name="jenis_sample" type="text" class="form-control">
+                                                <input name="jenis_sample" type="text" class="form-control" required>
                                             </div>
                                         </div>
 
@@ -86,14 +81,46 @@
                                                     <i class="blue"></i>
                                                     QQ PLP
                                                 </label>
+                                                <label class="md-check">
+                                                    <input value="D ITP" type="radio" name="pengambil_sample"
+                                                        checked="">
+                                                    <i class="blue"></i>
+                                                    D ITP
+                                                </label>
+                                                <label class="md-check">
+                                                    <input value="D PLP" type="radio" name="pengambil_sample"
+                                                        checked="">
+                                                    <i class="blue"></i>
+                                                    D PLP
+                                                </label>
+                                                <label class="md-check">
+                                                    <input value="RS ITP" type="radio" name="pengambil_sample"
+                                                        checked="">
+                                                    <i class="blue"></i>
+                                                    RS ITP
+                                                </label>
+                                                <label class="md-check">
+                                                    <input value="RS PLP" type="radio" name="pengambil_sample"
+                                                        checked="">
+                                                    <i class="blue"></i>
+                                                    RS PLP
+                                                </label>
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <label class="col-sm-4 col-form-label">Tanggal Pengambilan</label>
                                             <div class="col-sm-8">
-                                                <input name="tgl" id="event-start-date" type="date" class="form-control"
+                                                <input name="tgl" id="event-start-date" type="date" class="form-control required"
                                                     placeholder="Date">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label">Waktu Pengambilan</label>
+                                            <div class="col-sm-8">
+                                                <input name="waktu" id="event-start-date" type="time" class="form-control required"
+                                                    placeholder="Time">
                                             </div>
                                         </div>
 
@@ -101,22 +128,22 @@
                                             <label class="col-sm-4 col-form-label">Jenis Test</label>
                                             <div class="col-sm-8">
                                                 <label class="md-check">
-                                                    <input value="Complete Test" type="radio" name="jenis_test" checked="">
+                                                    <input value="Complete Test" type="radio" name="jenis_test" checked="" required>
                                                     <i class="blue"></i>
                                                     Complete Test
                                                 </label>
 
                                                 <label class="md-check">
-                                                    <input value="Short Test" type="radio" name="jenis_test" checked="">
+                                                    <input value="Short Test" type="radio" name="jenis_test" checked="" required>
                                                     <i class="blue"></i>
                                                     Short Test
                                                 </label>
                                             </div>
                                         </div>
                                         <!-- type -->
-                                        <input name="type" type="hidden" value="pengantar">
+                                        <input name="type" type="hidden" value="pengantar" required>
                                         <div class="form-group">
-                                            <input type="submit" class="btn btn-primary" value="Submit">
+                                            <input type="submit" class="btn btn-primary" value="Submit" required>
                                         </div>
                                     </form>
 

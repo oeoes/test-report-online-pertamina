@@ -34,7 +34,13 @@
     <!-- theme -->
     <script src="{{ asset('basik/assets/js/theme.js') }}"></script>
     <script src="{{ asset('basik/assets/js/utils.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js" charset="utf-8"></script>
     <!-- endbuild -->
+
+    <!-- chart -->
+    <script src="{{ asset('js/summary.js') }}"></script>
+    <!-- <script src="{{ asset('js/before.js') }}"></script> -->
+    <!-- endof chart -->
     <script>
         $('#myalert').slideDown('fast')
         setTimeout(() => {

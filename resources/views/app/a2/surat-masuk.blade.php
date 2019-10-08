@@ -63,7 +63,6 @@
                                     <tr>
                                         <th class="text-muted">Owner</th>
                                         <th class="text-muted sortable" data-toggle-class="asc">Name</th>
-                                        <th class="text-muted"><span class="d-none d-sm-block">No Surat</span></th>
                                         <th class="text-muted"><span class="d-none d-sm-block">Produk</span></th>
                                         <th class="text-muted"><span class="d-none d-sm-block">Asal Sample</span></th>
                                         <th class="text-muted"><span class="d-none d-sm-block">Jenis Sample</span></th>
@@ -85,39 +84,34 @@
                                             </div>
                                         </td>
                                         <td class="flex">
-                                            <a href="music.detail.html" class="item-title text-color ">{{ ucwords($i->type) }}</a>
+                                            <a class="item-title text-color ">{{ ucwords($i->type) }}</a>
                                             <div class="item-except text-muted text-sm h-1x">
-                                                {{ $i->type }}
+                                                {{ $i->no_surat }}
                                             </div>
                                         </td>
                                         <td>
-                                            <span class="item-amount d-none d-sm-block text-sm ">
-                                                {{ $i->no_surat }}
+                                            <span class="item-amount d-none d-sm-block text-sm">
+                                                {{ ucwords($i->produk) }}
                                             </span>
                                         </td>
                                         <td>
                                             <span class="item-amount d-none d-sm-block text-sm">
-                                                {{ $i->produk }}
+                                                {{ ucwords($i->asal_sample) }}
                                             </span>
                                         </td>
                                         <td>
                                             <span class="item-amount d-none d-sm-block text-sm">
-                                                {{ $i->asal_sample }}
+                                                {{ ucwords($i->jenis_sample) }}
                                             </span>
                                         </td>
                                         <td>
                                             <span class="item-amount d-none d-sm-block text-sm">
-                                                {{ $i->jenis_sample }}
+                                                <i data-feather='calendar'></i> {{ $i->tgl }} <i data-feather='clock'></i> {{ $i->waktu }}
                                             </span>
                                         </td>
                                         <td>
                                             <span class="item-amount d-none d-sm-block text-sm">
-                                                {{ $i->tgl }}
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <span class="item-amount d-none d-sm-block text-sm">
-                                                {{ $i->jenis_test }}
+                                                {{ ucwords($i->jenis_test) }}
                                             </span>
                                         </td>
                                         <td>
@@ -136,38 +130,8 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="d-flex">
-                            <ul class="pagination">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <span aria-hidden="true">«</span>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                </li>
-                                <li class="page-item active">
-                                    <a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">2</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">3</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">4</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">5</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <span aria-hidden="true">»</span>
-                                        <span class="sr-only">Next</span>
-                                    </a>
-                                </li>
-                            </ul>
-                            <small class="text-muted py-2 mx-2">Total <span id="count">15</span> items</small>
-                        </div>
+                        <!-- pagination -->
+                        {{ $inbox }}
                     </div>
                 </div>
             </div>

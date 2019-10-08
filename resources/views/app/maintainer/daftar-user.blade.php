@@ -12,8 +12,8 @@
             <div class="page-hero page-container " id="page-hero">
                 <div class="padding d-flex">
                     <div class="page-title">
-                        <h2 class="text-md text-highlight">Refused Requests</h2>
-                        <small class="text-muted">Daftar pengajuan yang telah disetujui</small>
+                        <h2 class="text-md text-highlight">List of Users</h2>
+                        <small class="text-muted">Daftar pengguna yang diundang</small>
                     </div>
                     <div class="flex"></div>
                 </div>
@@ -63,18 +63,16 @@
                                     <tr>
                                         <th class="text-muted">Owner</th>
                                         <th class="text-muted sortable" data-toggle-class="asc">Name</th>
-                                        <th class="text-muted"><span class="d-none d-sm-block">Produk</span></th>
-                                        <th class="text-muted"><span class="d-none d-sm-block">Asal Sample</span></th>
-                                        <th class="text-muted"><span class="d-none d-sm-block">Jenis Sample</span></th>
-                                        <th class="text-muted"><span class="d-none d-sm-block">Rencana/Tgl Pengambilan</span></th>
-                                        <th class="text-muted"><span class="d-none d-sm-block">Jenis Test</span></th>
+                                        <th class="text-muted"><span class="d-none d-sm-block">Role</span></th>
+                                        <th class="text-muted"><span class="d-none d-sm-block">Invited at</span></th>
+                                        <th class="text-muted"><span class="d-none d-sm-block">Email verified at</span></th>
                                         <th class="text-muted"><span class="d-none d-sm-block">Status</span></th>
                                         <th class="text-muted"><span class="d-none d-sm-block">Action</span></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($refused as $r)
-                                    <tr class=" v-middle" data-id="{{ $r->id }}">
+                                    @foreach($users as $u)
+                                    <tr class=" v-middle" data-id="{{ $u->id }}">
                                         <td>
                                             <div class="d-flex avatar-group">
                                                 <a href="#" class="avatar w-32" data-toggle="tooltip" title=""
@@ -84,44 +82,50 @@
                                             </div>
                                         </td>
                                         <td class="flex">
-                                            <a href="music.detail.html" class="item-title text-color ">{{ ucwords($r->type) }}</a>
+                                            @if(empty($u->name))
+                                            <a href="" class="item-title text-color ">No name</a>
+                                            @else
+                                            <a href="" class="item-title text-color ">{{ ucwords($u->name) }}</a>
+                                            @endif
                                             <div class="item-except text-muted text-sm h-1x">
-                                                {{ $a->no_surat }}
+                                                {{ $u->email }}
                                             </div>
                                         </td>
                                         <td>
-                                            <span class="item-amount d-none d-sm-block text-sm">
-                                                {{ ucwords($r->produk) }}
+                                            <span class="item-amount d-none d-sm-block text-sm ">
+                                                User {{ $u->role }}
                                             </span>
                                         </td>
                                         <td>
                                             <span class="item-amount d-none d-sm-block text-sm">
-                                                {{ ucwords($r->asal_sample) }}
+                                                {{ $u->created_at->diffForHumans() }}
                                             </span>
                                         </td>
                                         <td>
                                             <span class="item-amount d-none d-sm-block text-sm">
-                                                {{ ucwords($r->jenis_sample) }}
+                                                @if($u->status == 'waiting')
+                                                Not yet
+                                                @else
+                                                {{ $u->email_verified_at->diffForHumans() }}                                                
+                                                @endif
                                             </span>
                                         </td>
                                         <td>
                                             <span class="item-amount d-none d-sm-block text-sm">
-                                                {{ $r->tgl }}
+                                                @if($u->status == 'waiting')
+                                                <span class="item-amount d-none d-sm-block text-sm">
+                                                    <span class="badge badge-warning text-uppercase p-1">Waiting</span>
+                                                </span>
+                                                @else
+                                                <span class="item-amount d-none d-sm-block text-sm">
+                                                    <span class="badge badge-success text-uppercase p-1">Verified</span>
+                                                </span>                                          
+                                                @endif
                                             </span>
                                         </td>
                                         <td>
                                             <span class="item-amount d-none d-sm-block text-sm">
-                                                {{ ucwords($r->jenis_test) }}
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <span class="item-amount d-none d-sm-block text-sm">
-                                                <span class="badge badge-warning text-uppercase p-1">{{ $r->status }}</span>
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <span class="item-amount d-none d-sm-block text-sm">
-                                                <a href="{{ route('requests.delete', $r->id) }}"><span class="badge badge-danger p-2">Delete</span></a>
+                                               <a href=""><span class="badge badge-danger p-2 mb-1">Remove</span></a>
                                             </span>
                                         </td>
                                     </tr>
@@ -130,7 +134,7 @@
                             </table>
                         </div>
                         <!-- pagination -->
-                        {{ $refused }}
+                        {{ $users }}
                     </div>
                 </div>
             </div>
