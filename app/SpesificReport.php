@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class SpesificReport extends Model
 {
-    protected $fillable = ['produk', 'tag', 'flag', 'issuer'];
+    protected $fillable = ['produk', 'tag', 'flag', 'type', 'issuer'];
 }

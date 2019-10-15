@@ -5,7 +5,8 @@
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <div class="card border-0 shadow-sm p-3 mt-5">
-                    <div class="h3 text-center">Join</div>
+                    <img src="{{ asset('images/logo.png') }}" alt="" srcset="" style="max-width: 100%;">
+                    <div class="h3 text-center mt-4">Join</div>
                     <span class="text-muted text-center">Join using invited email address</span>
                     <hr>
                     <form action="{{ route('user.join') }}" method="post">

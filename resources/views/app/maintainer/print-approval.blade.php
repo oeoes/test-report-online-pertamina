@@ -29,8 +29,9 @@
                                 <th data-sortable="true" data-field="owner">Owner</th>
                                 <th data-sortable="true" data-field="produk">Produk</th>
                                 <th data-sortable="true" data-field="produk">Issuer</th>
-                                <th data-sortable="true" data-field="produk">Action</th>
-                                <th data-field="date"><span class="d-none d-sm-block">Date</span></th>
+                                <th data-sortable="true" data-field="produk">Type</th>
+                                <th data-sortable="true" data-field="produk">Print Request</th>
+                                <th data-field="date"><span class="d-none d-sm-block">Released at</span></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -42,14 +43,14 @@
                             @foreach($print as $p)
                             <tr class="" data-id="{{ $p->id }}">
                                 <td>
-                                    <a href="{{ route('spesific-reports.show-detail', ['flag' => $p->flag, 'type' => 'before']) }}">
+                                    <a>
                                         <span class="w-32 avatar gd-warning">
                                             {{ strtoupper($p->issuer[0]) }}
                                         </span>
                                     </a>
                                 </td>
                                 <td class="flex">
-                                    <a href="{{ route('spesific-reports.show-detail', ['flag' => $p->flag, 'type' => 'before']) }}" class="item-title text-color ">{{ ucwords($p->produk) }}</a>
+                                    <a class="item-title text-color ">{{ ucwords($p->produk) }}</a>
                                     <div class="item-except text-muted text-sm h-1x">
                                         {{ $p->issuer }}
                                     </div>
@@ -61,10 +62,35 @@
                                 </td>
                                 <td>
                                     <span class="item-amount d-none d-sm-block text-sm ">
-                                        @if($p->print == 1)
-                                        <span class="badge badge-warning text-uppercase p-1">waiting</span>
+                                        {{ strtoupper($p->type) }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="item-amount d-none d-sm-block text-sm ">
+                                        @if($p->type == 'coq')
+                                            @if($p->print_coq == 1)
+                                            <span class="badge badge-warning text-uppercase p-1">waiting</span>
+                                            @else
+                                            <span class="badge badge-info text-uppercase p-1">Approved</span>
+                                            @endif
+                                        @elseif($p->type == 'before')
+                                            @if($p->print_before == 1)
+                                            <span class="badge badge-warning text-uppercase p-1">waiting</span>
+                                            @else
+                                            <span class="badge badge-info text-uppercase p-1">Approved</span>
+                                            @endif
+                                        @elseif($p->type == 'after')
+                                            @if($p->print_after == 1)
+                                            <span class="badge badge-warning text-uppercase p-1">waiting</span>
+                                            @else
+                                            <span class="badge badge-info text-uppercase p-1">Approved</span>
+                                            @endif
                                         @else
-                                        <span class="badge badge-info text-uppercase p-1">Approved</span>
+                                            @if($p->print_distribution == 1)
+                                            <span class="badge badge-warning text-uppercase p-1">waiting</span>
+                                            @else
+                                            <span class="badge badge-info text-uppercase p-1">Approved</span>
+                                            @endif
                                         @endif
                                     </span>
                                 </td>
@@ -79,11 +105,8 @@
                                             <i data-feather="more-vertical"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right bg-black" role="menu">
-                                            <a class="dropdown-item edit">
-                                                Edit
-                                            </a>
-                                            <a href="{{ route('reports.process', ['id' => $p->id, 'type' => 'after']) }}" class="dropdown-item edit">
-                                                Report after received
+                                            <a href="{{ route('spesific-reports.request-print', ['flag' => $p->flag, 'type' => $p->type]) }}" class="dropdown-item edit">
+                                                Approve
                                             </a>
                                             <div class="dropdown-divider"></div>
                                             <a href="{{ route('reports.delete', $p->id) }}" class="dropdown-item trash">

@@ -5,7 +5,8 @@
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <div class="card border-0 shadow-sm p-3 mt-5">
-                    <div class="h3 text-center">Login</div>
+                    <img src="{{ asset('images/logo.png') }}" alt="" srcset="" style="max-width: 100%;">
+                    <div class="h3 text-center mt-4">Login</div>
                     <span class="text-muted text-center">Login to Golab Pertamina</span>
                     <hr>
                     <form action="{{ route('user.login') }}" method="post">
@@ -21,10 +22,10 @@
                         </div>
 
                         <div class="form-group">
-                            <input type="submit" class="btn btn-primary" value="Masuk">
+                            <button type="submit" class="btn btn-primary circle">Masuk  <i data-feather="log-in"></i></button>
                         </div>
                     </form>
-                    <a href="{{ route('user.join.page') }}">Join</a>
+                    <a href="{{ route('user.join.page') }}">Join <i data-feather="user-plus"></i></a>
                     @if($errors->any())
                         
                     @endif

@@ -25,7 +25,7 @@
                         <div class="col-sm-8 col-md-8">
                             <div class="card">
                                 <div class="card-header">
-                                    Graphic of 
+                                    Graphic of <span id="namaparameter"></span>
                                 </div>
                                 <div class="card-body" style="min-height: 360px">
                                     <canvas id="chart-line">
@@ -41,21 +41,30 @@
                                 <div class="card-body" style="min-height: 200px">
                                     <form action="">
                                         <div class="form-group">
+                                            <label>Parameter</label>
+                                            <select name="" id="select_parameter" class="custom-select">
+                                                @foreach($parameter as $p)
+                                                <option value="{{ $p->parameter }}">{{ $p->parameter }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Date Release</label>
                                             <select name="" id="select_flag" class="custom-select">
-                                                @foreach($flags as $f)
-                                                <option value="{{ $f->flag }}">{{ $f->created_at->format('l, d-m-Y H:i:s') }}</option>
+                                                @foreach($flag as $f)
+                                                <option value="{{ $f->flag }}">{{ $f->flag }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </form>
-                                    <div id="change" class="btn btn-primary circle">View</div>
+                                    <div id="change" class="btn btn-primary circle">View <i class="ml-2" data-feather="search"></i></div>
                                     <div class="card shadow p-3 mt-3">
                                         Detail
                                         <hr>
-                                        <div><i data-feather='box'></i> : <span class="badge badge-success text-uppercase p-1"><span id="produk"></span></span></div>
-                                        <div><i data-feather='user'></i> : <span id="issuer"></span></div>
+                                        <div><i data-feather='cpu'></i> : <span class="badge badge-success text-uppercase p-1"><span id="parameter"></span></span></div>
+                                        <div><i data-feather='box'></i> : <span class="badge badge-info text-uppercase p-1"><span id="produk"></span></span></div>
+                                        <div><i data-feather='user'></i> : <span id="user"></span></div>
                                         <div><i data-feather='calendar'></i> : <span id="date"></span></div>
-                                        <div><i data-feather='tag'></i> : <span id="tag"></span></div>
                                     </div>
                                 </div>
                             </div>
@@ -65,7 +74,7 @@
                         <div class="col-sm-3 col-md-3">
                             <div class="card">
                                 <div class="card-header">
-                                    Select Range
+                                    Select Range for COQ
                                 </div>
                                 <div class="card-body" style="min-height: 200px">
                                     <form action="">
@@ -78,7 +87,7 @@
                                             <input id="coq_to" type="date" class="form-control">
                                         </div>
                                     </form>
-                                    <div id="change_coq" class="btn btn-primary circle">View</div>
+                                    <div id="change_coq" class="btn btn-primary circle">View <i class="ml-2" data-feather="search"></i></div>
                                 </div>
                             </div>
                         </div>  
@@ -111,7 +120,7 @@
                         <div class="col-sm-3 col-md-3">
                             <div class="card">
                                 <div class="card-header">
-                                    Select Range
+                                    Select Range Before Dischare
                                 </div>
                                 <div class="card-body" style="min-height: 200px">
                                     <form action="">
@@ -124,7 +133,7 @@
                                             <input id="before_to" type="date" class="form-control">
                                         </div>
                                     </form>
-                                    <div id="change_before" class="btn btn-primary circle">View</div>
+                                    <div id="change_before" class="btn btn-primary circle">View <i class="ml-2" data-feather="search"></i></div>
                                 </div>
                             </div>
                         </div>                       
@@ -135,7 +144,7 @@
                         <div class="col-sm-3 col-md-3">
                             <div class="card">
                                 <div class="card-header">
-                                    Select Range
+                                    Select Range After Received
                                 </div>
                                 <div class="card-body" style="min-height: 200px">
                                     <form action="">
@@ -148,7 +157,7 @@
                                             <input id="after_to" type="date" class="form-control">
                                         </div>
                                     </form>
-                                    <div id="change_after" class="btn btn-primary circle">View</div>
+                                    <div id="change_after" class="btn btn-primary circle">View <i class="ml-2" data-feather="search"></i></div>
                                 </div>
                             </div>
                         </div>
@@ -180,7 +189,7 @@
                         <div class="col-sm-3 col-md-3">
                             <div class="card">
                                 <div class="card-header">
-                                    Select Range
+                                    Select Range of Distribution
                                 </div>
                                 <div class="card-body" style="min-height: 200px">
                                     <form action="">
@@ -193,7 +202,7 @@
                                             <input id="distribution_to" type="date" class="form-control">
                                         </div>
                                     </form>
-                                    <div id="change_distribution" class="btn btn-primary circle">View</div>
+                                    <div id="change_distribution" class="btn btn-primary circle">View <i class="ml-2" data-feather="search"></i></div>
                                 </div>
                             </div>
                         </div>                      

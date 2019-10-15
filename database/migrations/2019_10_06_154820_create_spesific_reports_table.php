@@ -19,7 +19,11 @@ class CreateSpesificReportsTable extends Migration
             $table->string('tag');
             $table->string('flag');
             $table->string('issuer');
-            $table->tinyInteger('print')->default(0);
+            $table->string('type')->nullable();
+            $table->tinyInteger('print_coq')->default(0);
+            $table->tinyInteger('print_before')->default(0);
+            $table->tinyInteger('print_after')->default(0);
+            $table->tinyInteger('print_distribution')->default(0);
             $table->timestamps();
         });
     }

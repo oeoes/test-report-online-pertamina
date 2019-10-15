@@ -40,10 +40,10 @@ Route::prefix('app')->middleware('auth')->group(function() {
     // test report
     Route::resource('reports', 'TestReportController');
     Route::get('reports/delete/{id}', 'TestReportController@delete')->name('reports.delete');
-    Route::get('reports/test/process/{id?}/{type?}', 'TestReportController@process')->name('reports.process');
+    Route::get('reports/test/process/{id?}/{type?}', 'TestReportController@process')->name('reports.process'); // create master data
 
     Route::get('reports/test/before', 'TestReportController@beforeDischarge')->name('reports.before');
-    Route::post('reports/test/process/add', 'TestReportController@processTestReport')->name('reports.before.add');
+    // Route::post('reports/test/process/add', 'TestReportController@processTestReport')->name('reports.before.add');
 
     Route::get('reports/test/after', 'TestReportController@afterReceived')->name('reports.after');
     Route::get('reports/test/coq', 'TestReportController@coq')->name('reports.coq');
@@ -55,19 +55,22 @@ Route::prefix('app')->middleware('auth')->group(function() {
     // spesific report
     Route::resource('spesific-reports', 'SpesificReportController');
     Route::get('spesific-reports/{flag}/show/{type}/detail', 'SpesificReportController@showSpesificReport')->name('spesific-reports.show-detail');
-    Route::get('spesific-reports/{flag}/request/print', 'SpesificReportController@requestPrint')->name('spesific-reports.request-print');
+    Route::get('spesific-reports/{flag}/request/{type}/print', 'SpesificReportController@requestPrint')->name('spesific-reports.request-print');
     // spesific report --> download test report
-    Route::get('spesific-reports/report/{flag}/print', 'SpesificReportController@printTestReport')->name('spesific-reports.print');
+    Route::post('spesific-reports/report/{flag}/print/{type}', 'SpesificReportController@printTestReport')->name('spesific-reports.print');
     
     // parameter
     Route::resource('parameters', 'ParameterController');
 
     // graphic
-    Route::get('graphics/category/{flag?}', 'GraphicController@reportCategory')->name('graphics.category');
+    Route::get('graphics/category/{parameter?}/{flag?}', 'GraphicController@reportCategory')->name('graphics.category');
     Route::get('graphics/before/{from?}/{to?}', 'GraphicController@before')->name('graphics.before');
     Route::get('graphics/coq/{from?}/{to?}', 'GraphicController@coq')->name('graphics.coq');
     Route::get('graphics/after/{from?}/{to?}', 'GraphicController@after')->name('graphics.after');
     Route::get('graphics/distribution/{from?}/{to?}', 'GraphicController@distribution')->name('graphics.distribution');
+
+    // release report
+    Route::resource('release', 'ReleaseReportController');
 });
 Route::get('signout', 'AuthController@signOut')->name('user.signout');
 Route::post('login', 'AuthController@login')->name('user.login');

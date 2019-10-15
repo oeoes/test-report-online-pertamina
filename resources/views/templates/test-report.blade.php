@@ -19,7 +19,7 @@
         width: 100%;
         text-align: center;
         font-size: 14px;
-        font-weight: 550
+        font-weight: 650
     }
     td, th{
         padding: 5px;
@@ -69,26 +69,38 @@
     <img src="https://cdn.worldvectorlogo.com/logos/pertamina-logo-1.svg" style="width: 450px; position: fixed; right: -40%; top: 10px" alt="">
 
     <div class="judul">PT. PERTAMINA (PERSERO)</div>
-    <div class="subjudul">Terminal BBM Tanjung Priok, Jl. Jampea No. 1, Jakarta Utara</div>
+    <div class="subjudul">LABORATORIUM TBBM JAKARTA GROUP - PLUMPANG</div>
+    <h2 style="text-align: center; margin: 5px">TEST REPORT</h2>
+    <p style="text-align: center; margin: 0">Jl. Yos Sudarso Jembatan I, Plumpang - Jakarta Utara 14230</p>
+    <p style="text-align: center; margin: 0">Phone: +6221-43923156, Fax: +6221-43903367, E-mail: lab.plp@pertamina.com</p>
     
-    <div style="width: 100%; height: 5px; background: black; margin-top: 20px"></div>
+    <div style="width: 100%; height: 5px; background: black; margin-top: 10px"></div>
     <div style="width: 100%; height: 1px; background: black; margin-top: 5px; margin-bottom: 15px"></div>
-
-    <div style="text-align: center; font-size: 13px; font-weight: bold; margin-bottom: 5px">Test Report</div>
-    <div style="text-align: center; font-size: 13px; font-weight: bold; margin-bottom: 14px;">No. TR-1003-PR/F13431/2018</div>
     
-    <table style="width: 30%">
+    <table style="width: 100%" class="ket">
         <tr>
-            <td>Nama Pelanggan</td>
-            <td>: SPBU</td>
+            <td>Jenis Sample</td>
+            <td>: <strong>{{ strtoupper($detail->jenis) }}</strong></td>
+            <td>No. Test Report</td>
+            <td>: <strong>{{ $detail->no_test }}</strong></td>
         </tr>
         <tr>
-            <td>Produk</td>
-            <td>: {{ ucwords($produk) }}</td>
+            <td>Asal Sample</td>
+            <td>: <strong>{{ strtoupper($detail->asal) }}</strong></td>
+            <td>Tanggal Test Report</td>
+            <td>: {{ $detail->tgl_test }}</td>
         </tr>
         <tr>
-            <td>No. Tangki</td>
-            <td>: T.22</td>
+            <td>Tanggal Pengambilan Sample</td>
+            <td>: {{ $detail->tgl_ambil }}</td>
+            <td>Tanggal Pemeriksaan</td>
+            <td>: {{ $detail->tgl_pemeriksaan }}</td>
+        </tr>
+        <tr>
+            <td>Tanggal Terima Sample</td>
+            <td>: {{ $detail->tgl_terima }}</td>
+            <td>Jenis Pemeriksaan</td>
+            <td>: <strong>{{ ucwords($detail->jenis_pemeriksaan) }}</strong></td>
         </tr>
     </table>
 
@@ -100,10 +112,7 @@
             <th>Unit</th>
             <th>Limitation Min</th>
             <th>Limitation Max</th>
-            <th>COQ</th>
-            <th>Before</th>
-            <th>After</th>
-            <th>Dist.</th>
+            <th>Result</th>
         </tr>
     </thead>
     <tbody class="bodylist">
@@ -114,10 +123,15 @@
             <td>{{ $d->unit }}</td>
             <td>{{ $d->limit_min }}</td>
             <td>{{ $d->limit_max }}</td>
+            @if($type == 'coq')
             <td>{{ $d->coq_value }}</td>
+            @elseif($type == 'before')
             <td>{{ $d->before_value }}</td>
+            @elseif($type == 'after')
             <td>{{ $d->after_value }}</td>
+            @else
             <td>{{ $d->distribution_value }}</td>
+            @endif
         </tr>
         @endforeach
     </tbody>
@@ -136,7 +150,7 @@
             <td>Jakarta Utara, {{ $date }}</td>
         </tr>
         <tr>
-            <td>Pengawas Quality & Quantity</td>
+            <td>{{ $jabatan_penandatangan }}</td>
         </tr>
         <tr>
             <td></td>
@@ -148,7 +162,7 @@
             <td></td>
         </tr>
         <tr>
-            <td>Merwinanto Ceswono</td>
+            <td>{{ $penandatangan }}</td>
         </tr>
     </table>
 </body>

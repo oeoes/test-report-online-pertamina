@@ -29,7 +29,10 @@ class AppServiceProvider extends ServiceProvider
     {
         $kotak_masuk = TestRequest::where('status', 'pending')->count();
         $process = TestRequest::where('status', 'approved')->where('progress', '!=', 'released')->count();
-        $print_approve = SpesificReport::where('print', 1)->count();
+        $print_approve = SpesificReport::where('print_coq', 1)
+                        ->orWhere('print_before', 1)
+                        ->orWhere('print_after', 1)
+                        ->orWhere('print_distribution', 1)->count();
         Schema::defaultStringLength(191);
         View::share('kotak_masuk', $kotak_masuk);
         View::share('process', $process);

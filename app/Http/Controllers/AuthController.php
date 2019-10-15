@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\User;
-use App\SpesificReport;
+use App\TestReport;
 
 class AuthController extends Controller
 {
@@ -30,8 +31,9 @@ class AuthController extends Controller
     }
 
     public function home() {
-        $flags = SpesificReport::latest()->get();
-        return view('home')->with('flags', $flags);
+        $parameter = TestReport::latest()->limit(25)->get();
+        $flag = DB::table('test_reports')->select('flag')->groupBy('flag')->get();
+        return view('home')->with(['parameter' => $parameter, 'flag' => $flag]);
     }
 
     public function joinPage() {

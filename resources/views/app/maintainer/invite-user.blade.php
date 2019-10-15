@@ -50,7 +50,6 @@
                                                     <option disabled selected>Pick role</option>
                                                     <option value="lv1">User 1</option>
                                                     <option value="lv2">User 2</option>
-                                                    <option value="lv3">User 3</option>
                                                 </select>
                                             </div>
                                         </div>

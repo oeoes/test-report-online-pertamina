@@ -18,6 +18,7 @@ class TestReportController extends Controller
         return view('app.a3.master-data', ['master' => $master, 'option' => $this->option, 'parameter' => $parameter]);
     }
 
+    // create master data
     public function process($id=null, $type=null) {
         if(empty($id) || !$type) {
             $master = TestReport::where('type', 'master')->get();
@@ -48,7 +49,9 @@ class TestReportController extends Controller
     public function bundleRecord() {
         // change tatus master --> false
         $flag = \Str::random(24);
+        // create flag
         DB::table('test_reports')->where('tag', request('tag'))->update(['master' => 'false', 'flag' => $flag]);
+
         $data = TestReport::where('flag', $flag)->first();
         SpesificReport::create([
             'produk' => $data->produk,
@@ -66,7 +69,7 @@ class TestReportController extends Controller
     }
 
     public function beforeDischarge() {
-        $before = SpesificReport::latest()->paginate(15);
+        $before = SpesificReport::where('type', NULL)->latest()->paginate(15);
         
         return view('app.a3.before-discharge', ['before' => $before]);
     }
@@ -88,19 +91,19 @@ class TestReportController extends Controller
     }
 
     public function afterReceived() {
-        $after = SpesificReport::latest()->paginate(15);
+        $after = SpesificReport::where('type', NULL)->latest()->paginate(15);
         
         return view('app.a3.after-received', ['after' => $after]);
     }
 
     public function coq() {
-        $coq = SpesificReport::latest()->paginate(15);
+        $coq = SpesificReport::where('type', NULL)->latest()->paginate(15);
         
         return view('app.a3.coq', ['coq' => $coq]);
     }
 
     public function distribution() {
-        $distribution = SpesificReport::latest()->paginate(15);
+        $distribution = SpesificReport::where('type', NULL)->latest()->paginate(15);
         
         return view('app.a3.distribution', ['distribution' => $distribution]);
     }

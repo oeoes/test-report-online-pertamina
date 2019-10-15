@@ -86,7 +86,7 @@
                                         <td class="flex">
                                             <a href="music.detail.html" class="item-title text-color ">{{ ucwords($r->type) }}</a>
                                             <div class="item-except text-muted text-sm h-1x">
-                                                {{ $a->no_surat }}
+                                                {{ $r->no_surat }}
                                             </div>
                                         </td>
                                         <td>

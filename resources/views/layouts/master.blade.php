@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="{{ asset('basik/assets/css/bootstrap.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('basik/assets/css/theme.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('basik/assets/css/style.css') }}" type="text/css" />
+    <!-- favicons -->
+    <link href="{{ asset('images/favicon.png') }}" rel="icon">
+    <link href="{{ asset('images/favicon.png') }}" rel="apple-touch-icon">
     @yield('custom-css')
 </head>
 <body class="layout-row">

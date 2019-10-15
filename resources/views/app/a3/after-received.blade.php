@@ -71,13 +71,7 @@
                                             <i data-feather="more-vertical"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right bg-black" role="menu">
-                                            <a class="dropdown-item edit">
-                                                Edit
-                                            </a>
-                                            <a href="{{ route('reports.process', ['id' => $a->id, 'type' => 'after']) }}" class="dropdown-item edit">
-                                                Report after received
-                                            </a>
-                                            <div class="dropdown-divider"></div>
+                                            <!-- <div class="dropdown-divider"></div> -->
                                             <a href="{{ route('reports.delete', $a->id) }}" class="dropdown-item trash">
                                                 Delete item
                                             </a>
