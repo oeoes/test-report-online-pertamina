@@ -57,14 +57,14 @@
     <div style="margin-bottom: 40px">
     <p>Daftar Distribusi:</p> 
     <ol>
-        <li>Spv. QQ</li>
-        <li>Jr.Spv.Distribution</li>
+        @foreach($dist_detail as $d)
+            <li>{{ $d }}</li>
+        @endforeach
     </ol>
     
     </div>
     <em>Dokumen ini dinyatakan sah walaupun tanpa tanda tangan pejabat ybs, dicetak dari sistem Electronic Test Report Online</em>
     </footer>
-
 
     <img src="https://cdn.worldvectorlogo.com/logos/pertamina-logo-1.svg" style="width: 450px; position: fixed; right: -40%; top: 10px" alt="">
 
@@ -77,30 +77,32 @@
     <div style="width: 100%; height: 5px; background: black; margin-top: 10px"></div>
     <div style="width: 100%; height: 1px; background: black; margin-top: 5px; margin-bottom: 15px"></div>
     
+
+
     <table style="width: 100%" class="ket">
         <tr>
             <td>Jenis Sample</td>
-            <td>: <strong>{{ strtoupper($detail->jenis) }}</strong></td>
+            <td>: <strong>{{ strtoupper($title[0]->product_name) }}</strong></td>
             <td>No. Test Report</td>
-            <td>: <strong>{{ $detail->no_test }}</strong></td>
+            <td>: <strong>{{ $keterangan->no_test }}</strong></td>
         </tr>
         <tr>
             <td>Asal Sample</td>
-            <td>: <strong>{{ strtoupper($detail->asal) }}</strong></td>
+            <td>: <strong>{{ strtoupper($keterangan->asal_sample) }}</strong></td>
             <td>Tanggal Test Report</td>
-            <td>: {{ $detail->tgl_test }}</td>
+            <td>: {{ $date_report }}</td>
         </tr>
         <tr>
             <td>Tanggal Pengambilan Sample</td>
-            <td>: {{ $detail->tgl_ambil }}</td>
+            <td>: {{ $date_report }}</td>
             <td>Tanggal Pemeriksaan</td>
-            <td>: {{ $detail->tgl_pemeriksaan }}</td>
+            <td>: {{ $date_report }}</td>
         </tr>
         <tr>
             <td>Tanggal Terima Sample</td>
-            <td>: {{ $detail->tgl_terima }}</td>
+            <td>: {{ $date_report }}</td>
             <td>Jenis Pemeriksaan</td>
-            <td>: <strong>{{ ucwords($detail->jenis_pemeriksaan) }}</strong></td>
+            <td>: <strong>{{ ucwords($keterangan->jenis_pemeriksaan) }}</strong></td>
         </tr>
     </table>
 
@@ -116,22 +118,14 @@
         </tr>
     </thead>
     <tbody class="bodylist">
-        @foreach($data as $d)
+        @foreach($master_data as $k => $d)
         <tr>
             <td>{{ $d->parameter }}</td>
             <td>{{ $d->metode }}</td>
             <td>{{ $d->unit }}</td>
             <td>{{ $d->limit_min }}</td>
             <td>{{ $d->limit_max }}</td>
-            @if($type == 'coq')
-            <td>{{ $d->coq_value }}</td>
-            @elseif($type == 'before')
-            <td>{{ $d->before_value }}</td>
-            @elseif($type == 'after')
-            <td>{{ $d->after_value }}</td>
-            @else
-            <td>{{ $d->distribution_value }}</td>
-            @endif
+            <td>{{ $value[$k] }}</td>
         </tr>
         @endforeach
     </tbody>
@@ -140,20 +134,16 @@
     <p>Catatan :</p>
     <ol>
         <li>Sesuai keputusan Direktorat Jendral Minyak dan Gas Bumi No. 28.K/10/DJM.T/2016 tanggal 24 Februari 2016 tentang Standar dan Mutu (Spesifikasi) Bahan Bakar Minyak Solar 48 yang Dipasarkan di Dalam Negeri.</li>
-        <li>Hasil pengujian sampel memenuhu spesifikasi Dirjen Migas</li>
-        <li>FS GANTRY</li>
+        <li>Hasil uji hanya berkaitan dengan bahan yang diuji</li>
     </ol>
 
     <!-- ttd -->
     <table align="right" border="0" style="margin-top: 50px">
         <tr border="0">
-            <td>Jakarta Utara, {{ $date }}</td>
+            <td>Jakarta Utara, {{ $date }} </td>
         </tr>
         <tr>
-            <td>{{ $jabatan_penandatangan }}</td>
-        </tr>
-        <tr>
-            <td></td>
+            <td>{{ $penandatangan[0] }}</td>
         </tr>
         <tr>
             <td></td>
@@ -162,7 +152,10 @@
             <td></td>
         </tr>
         <tr>
-            <td>{{ $penandatangan }}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>{{ $penandatangan[1] }}</td>
         </tr>
     </table>
 </body>

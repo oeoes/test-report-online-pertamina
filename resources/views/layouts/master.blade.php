@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ asset('basik/assets/css/bootstrap.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('basik/assets/css/theme.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('basik/assets/css/style.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
     <!-- favicons -->
     <link href="{{ asset('images/favicon.png') }}" rel="icon">
     <link href="{{ asset('images/favicon.png') }}" rel="apple-touch-icon">
@@ -23,7 +24,7 @@
     <script src="{{ asset('basik/libs/popper.js/dist/umd/popper.min.js') }}"></script>
     <script src="{{ asset('basik/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <!-- ajax page -->
-    <script src="{{ asset('basik/libs/pjax/pjax.min.js') }}"></script>
+    <!-- <script src="{{ asset('basik/libs/pjax/pjax.min.js') }}"></script> -->
     <script src="{{ asset('basik/assets/js/ajax.js') }}"></script>
     <!-- lazyload plugin -->
     <script src="{{ asset('basik/assets/js/lazyload.config.js') }}"></script>
@@ -42,7 +43,7 @@
 
     <!-- chart -->
     <script src="{{ asset('js/summary.js') }}"></script>
-    <!-- <script src="{{ asset('js/before.js') }}"></script> -->
+    <script src="{{ asset('js/app.js') }}"></script>
     <!-- endof chart -->
     <script>
         $('#myalert').slideDown('fast')

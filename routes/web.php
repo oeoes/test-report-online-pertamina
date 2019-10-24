@@ -42,9 +42,8 @@ Route::prefix('app')->middleware('auth')->group(function() {
     Route::get('reports/delete/{id}', 'TestReportController@delete')->name('reports.delete');
     Route::get('reports/test/process/{id?}/{type?}', 'TestReportController@process')->name('reports.process'); // create master data
 
+    // test report page
     Route::get('reports/test/before', 'TestReportController@beforeDischarge')->name('reports.before');
-    // Route::post('reports/test/process/add', 'TestReportController@processTestReport')->name('reports.before.add');
-
     Route::get('reports/test/after', 'TestReportController@afterReceived')->name('reports.after');
     Route::get('reports/test/coq', 'TestReportController@coq')->name('reports.coq');
     Route::get('reports/test/distribution', 'TestReportController@distribution')->name('reports.distribution');
@@ -57,13 +56,13 @@ Route::prefix('app')->middleware('auth')->group(function() {
     Route::get('spesific-reports/{flag}/show/{type}/detail', 'SpesificReportController@showSpesificReport')->name('spesific-reports.show-detail');
     Route::get('spesific-reports/{flag}/request/{type}/print', 'SpesificReportController@requestPrint')->name('spesific-reports.request-print');
     // spesific report --> download test report
-    Route::post('spesific-reports/report/{flag}/print/{type}', 'SpesificReportController@printTestReport')->name('spesific-reports.print');
+    Route::get('spesific-reports/report/{id}/print/{date}/{type}', 'SpesificReportController@printTestReport')->name('spesific-reports.print');
     
     // parameter
-    Route::resource('parameters', 'ParameterController');
+    Route::resource('products', 'ProductController');
 
     // graphic
-    Route::get('graphics/category/{parameter?}/{flag?}', 'GraphicController@reportCategory')->name('graphics.category');
+    Route::get('graphics/category/{parameter?}/{date?}', 'GraphicController@reportCategory')->name('graphics.category');
     Route::get('graphics/before/{from?}/{to?}', 'GraphicController@before')->name('graphics.before');
     Route::get('graphics/coq/{from?}/{to?}', 'GraphicController@coq')->name('graphics.coq');
     Route::get('graphics/after/{from?}/{to?}', 'GraphicController@after')->name('graphics.after');
@@ -71,6 +70,13 @@ Route::prefix('app')->middleware('auth')->group(function() {
 
     // release report
     Route::resource('release', 'ReleaseReportController');
+
+
+    // -----------yang baru--------------
+    Route::get('coq-reports/{id}/{date}/{type}', 'Reports\CoqReportController@showCoqDetail')->name('coq-reports.show-detail');
+    Route::get('before-reports/{id}/{date}/{type}', 'Reports\BeforeReportController@showBeforeDetail')->name('before-reports.show-detail');
+    Route::get('after-reports/{id}/{date}/{type}', 'Reports\AfterReportController@showAfterDetail')->name('after-reports.show-detail');
+    Route::get('distribution-reports/{id}/{date}/{type}', 'Reports\DistributionReportController@showDistributionDetail')->name('distribution-reports.show-detail');
 });
 Route::get('signout', 'AuthController@signOut')->name('user.signout');
 Route::post('login', 'AuthController@login')->name('user.login');

@@ -25,14 +25,10 @@
             </div>
             <ul class="nav navbar-menu order-1 order-lg-2">
                 <li class="nav-item d-none d-sm-block">
-                    <a class="nav-link px-2" data-toggle="fullscreen" data-plugin="fullscreen">
-                        <i data-feather="maximize"></i>
-                    </a>
+                   
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link px-2" data-toggle="dropdown">
-                        <i data-feather="settings"></i>
-                    </a>
+                    <a class="btn btn-sm circle btn-light" href="{{ route('user.signout') }}">Logout <i class="ml-2" data-feather="log-out"></i></a>
                     <!-- ############ Setting START-->
                     <div class="dropdown-menu dropdown-menu-center mt-3 w animate fadeIn">
                         <div class="setting px-3">

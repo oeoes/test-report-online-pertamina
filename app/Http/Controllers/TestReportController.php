@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\TestReport;
-use App\Parameter;
 use App\SpesificReport;
 
 class TestReportController extends Controller
@@ -14,8 +13,7 @@ class TestReportController extends Controller
 
     public function index() {
         $master = TestReport::where('master', 'true')->latest()->get();
-        $parameter = Parameter::all();
-        return view('app.a3.master-data', ['master' => $master, 'option' => $this->option, 'parameter' => $parameter]);
+        return view('app.a3.master-data', ['master' => $master, 'option' => $this->option]);
     }
 
     // create master data
@@ -69,9 +67,9 @@ class TestReportController extends Controller
     }
 
     public function beforeDischarge() {
-        $before = SpesificReport::where('type', NULL)->latest()->paginate(15);
+        $before  = DB::table('products')->join('before_reports', 'before_reports.product_id', '=', 'products.id')->select('products.id', 'products.product_name', DB::raw('DATE(before_reports.created_at) as date'))->distinct()->orderBy('date', 'DESC')->get();        
         
-        return view('app.a3.before-discharge', ['before' => $before]);
+        return view('app.a3.before-discharge', ['before' => $before, 'type' => 'before']);
     }
 
     public function processTestReport() {
@@ -91,20 +89,20 @@ class TestReportController extends Controller
     }
 
     public function afterReceived() {
-        $after = SpesificReport::where('type', NULL)->latest()->paginate(15);
+        $after  = DB::table('products')->join('after_reports', 'after_reports.product_id', '=', 'products.id')->select('products.id', 'products.product_name', DB::raw('DATE(after_reports.created_at) as date'))->distinct()->orderBy('date', 'DESC')->get();        
         
-        return view('app.a3.after-received', ['after' => $after]);
+        return view('app.a3.after-received', ['after' => $after, 'type' => 'after']);
     }
 
     public function coq() {
-        $coq = SpesificReport::where('type', NULL)->latest()->paginate(15);
+        $coq  = DB::table('products')->join('coq_reports', 'coq_reports.product_id', '=', 'products.id')->select('products.id', 'products.product_name', DB::raw('DATE(coq_reports.created_at) as date'))->distinct()->orderBy('date', 'DESC')->get();        
         
-        return view('app.a3.coq', ['coq' => $coq]);
+        return view('app.a3.coq', ['coq' => $coq, 'type' => 'coq']);
     }
 
     public function distribution() {
-        $distribution = SpesificReport::where('type', NULL)->latest()->paginate(15);
+        $distribution  = DB::table('products')->join('distribution_reports', 'distribution_reports.product_id', '=', 'products.id')->select('products.id', 'products.product_name', DB::raw('DATE(distribution_reports.created_at) as date'))->distinct()->orderBy('date', 'DESC')->get();        
         
-        return view('app.a3.distribution', ['distribution' => $distribution]);
+        return view('app.a3.distribution', ['distribution' => $distribution, 'type' => 'distribution']);
     }
 }

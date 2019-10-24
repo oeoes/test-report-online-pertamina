@@ -17,7 +17,6 @@ var distribution = '';
 var min = '';
 var max = '';
 var parameter = '';
-var user = '';
 
 // before
 var before_value = new Array();
@@ -42,23 +41,21 @@ var distribution_param = new Array();
 
 // change summary when clicked
 $('#change').on('click', function () {
-    $.get(url + '/' + $('#select_parameter').val() + '/'+ $('#select_flag').val(), function (response) {
-        
-        coq = response.data[0].coq;
-        before = response.data[0].before;
-        after = response.data[0].after;
-        distribution = response.data[0].distribution;
-        min = response.data[0].min;
-        max = response.data[0].max;
-        parameter = response.data[0].parameter
-        user = response.data[0].user_email
+    $.get(url + '/' + $('#select_parameter').val() + '/'+ $('#select_date').val(), function (response) {
+        console.log(response);        
+        coq = response.coq.value;
+        before = response.before.value;
+        after = response.after.value;
+        distribution = response.distribution.value;
+        min = response.data.limit_min;
+        max = response.data.limit_max;
+        parameter = response.data.parameter;
 
         // write detail
-        $('#produk').text(response.data[0].produk);
-        $('#parameter').text(response.data[0].parameter);
-        $('#namaparameter').text(response.data[0].parameter);
-        $('#date').text(response.data[0].date);
-        $('#user').text(response.data[0].user_email);
+        $('#produk').text('Pertalite');
+        $('#parameter').text(parameter);
+        $('#namaparameter').text(parameter);
+        $('#date').text('date');
         
 
         var ctx_change = document.getElementById("chart-line").getContext('2d');
@@ -287,49 +284,47 @@ $('#change_distribution').on('click', function () {
 $(document).ready(function () {
     $.get(url, function (response) {
         console.log(response);
-        coq = response.data[0].coq;
-        before = response.data[0].before;
-        after = response.data[0].after;
-        distribution = response.data[0].distribution;
-        min = response.data[0].min;
-        max = response.data[0].max;
-        parameter = response.data[0].parameter
-        user = response.data[0].user_email
+        coq = response.coq.value;
+        before = response.before.value;
+        after = response.after.value;
+        distribution = response.distribution.value;
+        min = response.data.limit_min;
+        max = response.data.limit_max;
+        parameter = response.data.parameter;
         
         
         // write detail
-        $('#produk').text(response.data[0].produk);
-        $('#parameter').text(response.data[0].parameter);
-        $('#namaparameter').text(response.data[0].parameter);
-        $('#date').text(response.data[0].date);
-        $('#user').text(response.data[0].user_email);
+        $('#produk').text('Pertalite');
+        $('#parameter').text(parameter);
+        $('#namaparameter').text(parameter);
+        $('#date').text('date');
 
 
         // assign coq array
-        response.coq.forEach(function (data) {
-            coq_value.push(data.coq)
-            coq_date.push(data.date)
-            coq_param.push(data.parameter)
-        });
+        // response.coq.forEach(function (data) {
+        //     coq_value.push(data.coq)
+        //     coq_date.push(data.date)
+        //     coq_param.push(data.parameter)
+        // });
 
         // assign before array
-        response.before.forEach(function (data) {
-            before_value.push(data.before)
-            before_date.push(data.date)
-            before_param.push(data.parameter)
-        });
+        // response.before.forEach(function (data) {
+        //     before_value.push(data.before)
+        //     before_date.push(data.date)
+        //     before_param.push(data.parameter)
+        // });
 
         // assign after array
-        response.after.forEach(function (data) {
-            after_value.push(data.after)
-            after_param.push(data.parameter)
-        });
+        // response.after.forEach(function (data) {
+        //     after_value.push(data.after)
+        //     after_param.push(data.parameter)
+        // });
 
         // assign distribution array
-        response.distribution.forEach(function (data) {
-            distribution_value.push(data.distribution)
-            distribution_param.push(data.parameter)
-        });
+        // response.distribution.forEach(function (data) {
+        //     distribution_value.push(data.distribution)
+        //     distribution_param.push(data.parameter)
+        // });
 
         // summary
         var ctx = document.getElementById("chart-line").getContext('2d');

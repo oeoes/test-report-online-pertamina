@@ -16,3 +16,10 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::resource('products', 'ProductController');
+Route::resource('masters', 'MasterDataController');
+Route::resource('coq-reports', 'CoqReportController');
+Route::resource('before-reports', 'BeforeReportController');
+Route::resource('after-reports', 'AfterReportController');
+Route::resource('distribution-reports', 'DistributionReportController');

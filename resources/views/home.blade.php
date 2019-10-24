@@ -49,12 +49,16 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label>Date Release</label>
-                                            <select name="" id="select_flag" class="custom-select">
-                                                @foreach($flag as $f)
-                                                <option value="{{ $f->flag }}">{{ $f->flag }}</option>
+                                            <label>Produk</label>
+                                            <select name="" id="select_product" class="custom-select">
+                                                @foreach($product as $p)
+                                                <option value="{{ $p->id }}">{{ $p->product_name }}</option>
                                                 @endforeach
                                             </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Date Release</label>
+                                            <input id="select_date" type="date" class="form-control">
                                         </div>
                                     </form>
                                     <div id="change" class="btn btn-primary circle">View <i class="ml-2" data-feather="search"></i></div>

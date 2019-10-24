@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\User;
 use App\TestReport;
+use App\MasterData;
+use App\Product;
 
 class AuthController extends Controller
 {
@@ -22,7 +24,14 @@ class AuthController extends Controller
         {
             return back()->withErrors(['message' => 'Invalid Credentials']);
         }
-        return redirect()->route('home');
+
+        if(auth()->user()->role == 'lv1') {
+            return redirect()->route('requests.index');
+        }else if(auth()->user()->role == 'lv2') {
+            return redirect()->route('reports.index');
+        }else {
+            return redirect()->route('home');
+        }
     }
 
     public function signOut() {
@@ -31,9 +40,9 @@ class AuthController extends Controller
     }
 
     public function home() {
-        $parameter = TestReport::latest()->limit(25)->get();
-        $flag = DB::table('test_reports')->select('flag')->groupBy('flag')->get();
-        return view('home')->with(['parameter' => $parameter, 'flag' => $flag]);
+        $parameter = MasterData::latest()->get();
+        $product = Product::latest()->get();
+        return view('home')->with(['parameter' => $parameter, 'product' => $product]);
     }
 
     public function joinPage() {

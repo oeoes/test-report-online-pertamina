@@ -3,7 +3,7 @@
 @section('content')
 
 @include('layouts.sidenav')
-<div id="main" class="layout-column flex">
+<div id="app" class="layout-column flex">
     @include('layouts.header')
     <!-- ############ Content START-->
     <div id="content" class="flex ">
@@ -20,70 +20,68 @@
             </div>
             <div class="page-content page-container" id="page-content">
                 <div class="padding">
+
+                    <coq-report></coq-report>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card p-3">
+                                <div class="h4">COQ Lists</div>
+                                <hr>
+
+                                <table id="table" class="table table-theme v-middle mt-3" data-plugin="bootstrapTable"
+                                    data-toolbar="#toolbar" data-search="true" data-search-align="left" data-show-export="true"
+                                    data-show-columns="true" data-detail-view="false" data-mobile-responsive="true"
+                                    data-pagination="true" data-page-list="[10, 25, 50, 100, ALL]">
+                                    <thead>
+                                        <tr>
+                                            <th data-sortable="true" data-field="owner">#</th>
+                                            <th data-sortable="true" data-field="produk">Produk</th>
+                                            <th data-field="date"><span class="d-sm-block">Date</span></th>
+                                            <th data-sortable="true" data-field="produk">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if(sizeof($coq) < 1)
+                                        <tr>
+                                            <td colspan="10" class="text-center">No data</td>
+                                        </tr>
+                                        @else     
+                                        @foreach($coq as $c)                           
+                                        <tr class="" data-id="">
+                                            <td>
+                                                <a href="">
+                                                    <span class="w-32 avatar gd-warning">
+                                                        {{ $c->product_name[0] }}
+                                                    </span>
+                                                </a>
+                                            </td>
+                                            <td class="flex">
+                                                <a href=""></a>
+                                                <div class="item-except text-muted text-sm h-1x">
+                                                    {{ $c->product_name }}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span class="item-amount d-sm-block text-sm ">
+                                                    {{ $c->date }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="item-amount d-sm-block text-sm ">
+                                                    <a href="{{ route('coq-reports.show-detail', ['id' => $c->id, 'date' => $c->date, 'type' => $type]) }}" class="btn btn-sm btn-primary pl-3 pr-3 circle">View</a>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                        @endif
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                     
-                    <table id="table" class="table table-theme v-middle mt-3" data-plugin="bootstrapTable"
-                        data-toolbar="#toolbar" data-search="true" data-search-align="left" data-show-export="true"
-                        data-show-columns="true" data-detail-view="false" data-mobile-responsive="true"
-                        data-pagination="true" data-page-list="[10, 25, 50, 100, ALL]">
-                        <thead>
-                            <tr>
-                                <th data-sortable="true" data-field="owner">Owner</th>
-                                <th data-sortable="true" data-field="produk">Produk</th>
-                                <th data-sortable="true" data-field="produk">Issuer</th>
-                                <th data-field="date"><span class="d-none d-sm-block">Date</span></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if(sizeof($coq) < 1)
-                            <tr>
-                                <td colspan="10" class="text-center">No data</td>
-                            </tr>
-                            @else
-                            @foreach($coq as $c)
-                            <tr class="" data-id="{{ $c->id }}">
-                                <td>
-                                    <a href="{{ route('spesific-reports.show-detail', ['flag' => $c->flag, 'type' => 'coq']) }}">
-                                        <span class="w-32 avatar gd-warning">
-                                            {{ strtoupper($c->issuer[0]) }}
-                                        </span>
-                                    </a>
-                                </td>
-                                <td class="flex">
-                                    <a href="{{ route('spesific-reports.show-detail', ['flag' => $c->flag, 'type' => 'coq']) }}" class="item-title text-color ">{{ ucwords($c->produk) }}</a>
-                                    <div class="item-except text-muted text-sm h-1x">
-                                        {{ $c->issuer }}
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="item-amount d-none d-sm-block text-sm ">
-                                        {{ $c->issuer }}
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="item-amount d-none d-sm-block text-sm [object Object]">
-                                        {{ $c->created_at->diffForHumans() }}
-                                    </span>
-                                </td>
-                                <td>
-                                    <div class="item-action dropdown">
-                                        <a href="#" data-toggle="dropdown" class="text-muted">
-                                            <i data-feather="more-vertical"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right bg-black" role="menu">
-                                            <!-- <div class="dropdown-divider"></div> -->
-                                            <a href="{{ route('reports.delete', $c->id) }}" class="dropdown-item trash">
-                                                Delete item
-                                            </a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforeach
-                            @endif
-                        </tbody>
-                    </table>
                     <!-- pagination -->
-                    {{ $coq }}
                 </div>
             </div>
         </div>

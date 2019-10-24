@@ -9,7 +9,12 @@ use App\TestReport;
 use App\ReleaseReport;
 use PDF;
 
-class SpesificReportController extends Controller
+// yang baru
+use App\CoqReport;
+use App\MasterData;
+use App\Http\Controllers\Base\BaseController;
+
+class SpesificReportController extends BaseController
 {
     // show report dengan value print != 0; nilai tersedia: 1=requested; 2=approved;
     public function index() {
@@ -83,27 +88,42 @@ class SpesificReportController extends Controller
 
     // print test report
     // POST
-    public function printTestReport($flag, $type) {
+    public function printTestReport($id, $date ,$type) {
 
         // untuk pertanggalan pada ttd surat
         $month = \Carbon\Carbon::now();
         $bulan = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
-        // check type
-        if($type == 'coq') {
-            $data = DB::table('test_reports')->select('id', 'parameter', 'metode', 'unit', 'limit_min', 'limit_max', 'coq_value')->where('flag', $flag)->get();
-        }else if($type == 'before') {
-            $data = DB::table('test_reports')->select('id', 'parameter', 'metode', 'unit', 'limit_min', 'limit_max', 'before_value')->where('flag', $flag)->get();
-        }else if($type == 'after') {
-            $data = DB::table('test_reports')->select('id', 'parameter', 'metode', 'unit', 'limit_min', 'limit_max', 'after_value')->where('flag', $flag)->get();
-        }else {
-            $data = DB::table('test_reports')->select('id', 'parameter', 'metode', 'unit', 'limit_min', 'limit_max', 'distribution_value')->where('flag', $flag)->get();
-        }
-        // get nama produk doang
-        $produk = TestReport::where('flag', $flag)->first();
-        $release_detail = ReleaseReport::where('flag', $flag)->where('type', $type)->first();
         
-        $pdf = PDF::loadView('templates.test-report', ['penandatangan' => request('penandatangan'), 'jabatan_penandatangan' => request('jabatan_penandatangan'), 'detail' => $release_detail, 'type' => $type, 'data' => $data, 'produk' => $produk->produk, 'date' => $month->format('d').' '.$bulan[ltrim($month->format('m'), 0)].' '.$month->format('Y')]);
+        // buat parent data
+        $single_data = $this->singleData($id, $date, $type);
+        
+        // get value of coq
+        $data = $this->data($id, $date, $type);
+        // isinya ada penanda tangang, dll
+        $keterangan = $this->keterangan($id, $date, $type);
+        $date_report = $keterangan->created_at;
+        $penandatangan = preg_split('/;/', $keterangan->penandatangan);
+        $dist_detail = preg_split('/;/', $keterangan->distribution_detail);
+        
+        // simpen coq value ke array
+        $values = [];
+        foreach ($data as $d) {
+            array_push($values, $d->value);
+        }
+
+        $master_data = MasterData::where('product_id', $id)->get();
+        
+        $pdf = PDF::loadView('templates.test-report', [
+            'master_data' => $master_data, 
+            'value' => $values, 
+            'keterangan' => $keterangan, 
+            'date' => $month->format('d').' '.$bulan[ltrim($month->format('m'), 0)].' '.$month->format('Y'),
+            'date_report' => $date_report->format('d').' '.$bulan[ltrim($date_report->format('m'), 0)].' '.$date_report->format('Y'),
+            'title' => $single_data,
+            'penandatangan' => $penandatangan,
+            'dist_detail' => $dist_detail
+            ]);
         return $pdf->stream('Test report.pdf');
     }
 }

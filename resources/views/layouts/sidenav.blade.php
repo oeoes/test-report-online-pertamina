@@ -22,14 +22,14 @@
                     <li class="nav-header hidden-folded">
                         <span class="text-muted">Main</span>
                     </li>
+                    @if(auth()->user()->role == 'maintainer')
                     <li class="active">
                         <a href="{{ route('home') }}">
                             <span class="nav-icon text-primary"><i data-feather='home'></i></span>
                             <span class="nav-text">Quality Discrepancy</span>
                         </a>
                     </li>
-                    @if(auth()->user()->role == 'maintainer')
-                    <li>
+                    <!-- <li>
                         <a href="{{ route('spesific-reports.index') }}">
                             <span class="nav-icon text-primary"><i data-feather='folder'></i></span>
                             <span class="nav-text">
@@ -40,7 +40,7 @@
                             @endif
                             </span>
                         </a>
-                    </li>
+                    </li> -->
                     @endif
 
                     @if(auth()->user()->role == 'maintainer')
@@ -158,9 +158,9 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('parameters.index') }}">
+                        <a href="{{ route('products.create') }}">
                             <span class="nav-icon text-info"><i data-feather='tag'></i></span>
-                            <span class="nav-text">Parameter</span>
+                            <span class="nav-text">Product</span>
                         </a>
                     </li>
                     @endif
@@ -168,5 +168,6 @@
             </div>
         </div>
     </div>
+
 </div>
 <!-- ############ Aside END-->

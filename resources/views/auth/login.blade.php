@@ -22,10 +22,10 @@
                         </div>
 
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary circle">Masuk  <i data-feather="log-in"></i></button>
+                            <button type="submit" class="btn btn-primary circle">Masuk  <i class="ml-2" data-feather="log-in"></i></button>
                         </div>
                     </form>
-                    <a href="{{ route('user.join.page') }}">Join <i data-feather="user-plus"></i></a>
+                    <a href="{{ route('user.join.page') }}">Join <i class="ml-2" data-feather="user-plus"></i></a>
                     @if($errors->any())
                         
                     @endif
