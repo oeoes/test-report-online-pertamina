@@ -43,6 +43,7 @@ class ReservationController extends Controller
             'asal_sample' => request('asal_sample'),
             'tgl' => request('tgl'),
             'waktu' => request('waktu'),
+            'approved_by' => auth()->user()->email,
             'jenis_test' => request('jenis_test'),
             'jenis_sample' => '-',
             'pengambil_sample' => '-',

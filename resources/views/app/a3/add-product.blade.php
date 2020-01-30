@@ -25,7 +25,7 @@
                             <add-product></add-product>
                         </div>
                         <div class="col-md-6">
-                            <img src="{{ asset('images/add.svg') }}" alt="" style="max-width: 100%">
+                            <img src="{{ asset('images/golab4.svg') }}" alt="" style="max-width: 100%">
                         </div>
                     </div>
                 </div>

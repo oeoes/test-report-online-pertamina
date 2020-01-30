@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\TestRequest;
+use App\TruckLocation;
 
 
 class DetailProcessController extends Controller
 {
     public function index() {
-        $detail = TestRequest::where('status', 'approved')->paginate(15);
+        $detail = TestRequest::where('status', 'approved')->latest()->paginate(15);
         return view('app.a2.detail-proses')->with('detail', $detail);
     }
 
@@ -24,6 +25,12 @@ class DetailProcessController extends Controller
             $current->accepted = \Carbon\Carbon::now();
             $current->progress = 'accepted';
             $current->accepted_by = auth()->user()->email;
+
+            // record for tracking
+            TruckLocation::create([
+                'user_id' => auth()->user()->id,
+                'test_request_id' => $id
+            ]);
         }
         else if($state == 'sampling') {
             $current->sampling = \Carbon\Carbon::now();

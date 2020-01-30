@@ -101,7 +101,7 @@
                     <small class="text-muted">Pisahkan jabatan dan penandatangan menggunakan ';', contoh Supervisor;Merwinanto</small>
                 </div>
                 <div class="form-group">
-                    <div @click="make_report" class="btn btn-primary">Create</div>
+                    <div @click="make_report" class="btn btn-primary">{{ txt_create }}</div>
                 </div>
             </div>
         </div>
@@ -129,7 +129,8 @@ export default {
             // result
             result: [],
             // coq
-            coq: []
+            coq: [],
+            txt_create: 'Create'
         }
     },
     methods: {
@@ -159,6 +160,7 @@ export default {
             })
         },
         make_report() {
+            this.txt_create = "Creating..."
             axios({
                 method: 'post',
                 url: 'api/coq-reports',
@@ -174,7 +176,7 @@ export default {
                 }
             })
             .then(response => {
-                console.log(response);                
+                location.reload()
             }).catch(error => {
                 console.log(error);                
             })

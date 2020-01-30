@@ -8,7 +8,7 @@ use App\TestRequest;
 class InboxController extends Controller
 {
     public function index() {
-        $inbox = TestRequest::where('status', 'pending')->paginate(15);
+        $inbox = TestRequest::latest()->paginate(15);
         return view('app.a2.surat-masuk', ['inbox' => $inbox]);
     }
 

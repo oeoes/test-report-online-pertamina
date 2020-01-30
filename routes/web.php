@@ -62,21 +62,24 @@ Route::prefix('app')->middleware('auth')->group(function() {
     Route::resource('products', 'ProductController');
 
     // graphic
-    Route::get('graphics/category/{parameter?}/{date?}', 'GraphicController@reportCategory')->name('graphics.category');
-    Route::get('graphics/before/{from?}/{to?}', 'GraphicController@before')->name('graphics.before');
-    Route::get('graphics/coq/{from?}/{to?}', 'GraphicController@coq')->name('graphics.coq');
-    Route::get('graphics/after/{from?}/{to?}', 'GraphicController@after')->name('graphics.after');
-    Route::get('graphics/distribution/{from?}/{to?}', 'GraphicController@distribution')->name('graphics.distribution');
+    Route::get('graphics/category/{parameter_id?}/{from?}/{to?}/{product_id?}', 'GraphicController@reportCategory')->name('graphics.category');
+    Route::get('graphics/before/{from?}/{to?}/{product_id?}/{parameter_id?}', 'GraphicController@before')->name('graphics.before');
+    Route::get('graphics/coq/{from?}/{to?}/{product_id?}/{parameter_id?}', 'GraphicController@coq')->name('graphics.coq');
+    Route::get('graphics/after/{from?}/{to?}/{product_id?}/{parameter_id?}', 'GraphicController@after')->name('graphics.after');
+    Route::get('graphics/distribution/{from?}/{to?}/{product_id?}/{parameter_id?}', 'GraphicController@distribution')->name('graphics.distribution');
 
     // release report
     Route::resource('release', 'ReleaseReportController');
 
 
     // -----------yang baru--------------
-    Route::get('coq-reports/{id}/{date}/{type}', 'Reports\CoqReportController@showCoqDetail')->name('coq-reports.show-detail');
-    Route::get('before-reports/{id}/{date}/{type}', 'Reports\BeforeReportController@showBeforeDetail')->name('before-reports.show-detail');
-    Route::get('after-reports/{id}/{date}/{type}', 'Reports\AfterReportController@showAfterDetail')->name('after-reports.show-detail');
-    Route::get('distribution-reports/{id}/{date}/{type}', 'Reports\DistributionReportController@showDistributionDetail')->name('distribution-reports.show-detail');
+    Route::get('coq-reports/{id}/{date}/{type}', 'CoqReportController@showCoqDetail')->name('coq-reports.show-detail');
+    Route::get('before-reports/{id}/{date}/{type}', 'BeforeReportController@showBeforeDetail')->name('before-reports.show-detail');
+    Route::get('after-reports/{id}/{date}/{type}', 'AfterReportController@showAfterDetail')->name('after-reports.show-detail');
+    Route::get('distribution-reports/{id}/{date}/{type}', 'DistributionReportController@showDistributionDetail')->name('distribution-reports.show-detail');
+
+    // biaya uji
+    Route::resource('test-prices', 'TestPriceController');
 });
 Route::get('signout', 'AuthController@signOut')->name('user.signout');
 Route::post('login', 'AuthController@login')->name('user.login');

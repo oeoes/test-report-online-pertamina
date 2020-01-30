@@ -62,7 +62,7 @@
                     </li>
                     @endif
                     
-                    @if(auth()->user()->role == 'lv1' || auth()->user()->role == 'maintainer')
+                    @if(auth()->user()->role == 'lv1' || auth()->user()->role == 'maintainer' || auth()->user()->role == 'external')
                     <!-- permintaan pengujian -->
                     <li class="nav-header hidden-folded">
                         <span class="text-muted">Permintaan Pengujian</span>
@@ -79,6 +79,7 @@
                             <span class="nav-text">Reservasi</span>
                         </a>
                     </li>
+                    @if(auth()->user()->role != 'external')
                     <li>
                         <a href="{{ route('requests.approved') }}">
                             <span class="nav-icon text-success"><i data-feather='mail'></i></span>
@@ -92,12 +93,14 @@
                         </a>
                     </li>
                     @endif
+                    @endif
 
-                    @if(auth()->user()->role == 'lv2' || auth()->user()->role == 'maintainer')
+                    @if(auth()->user()->role == 'lv2' || auth()->user()->role == 'maintainer' || auth()->user()->role == 'external')
                     <!-- monitoring kegiatan -->
                     <li class="nav-header hidden-folded">
                         <span class="text-muted">Monitoring Kegiatan</span>
                     </li>
+                    @if(auth()->user()->role != 'external')
                     <li>
                         <a href="{{ route('inboxes.index') }}">
                             <span class="nav-icon text-danger"><i data-feather='mail'></i></span>
@@ -109,6 +112,7 @@
                             </span>
                         </a>
                     </li>
+                    @endif
                     <li>
                         <a href="{{ route('details.index') }}">
                             <span class="nav-icon text-danger"><i data-feather='refresh-ccw'></i></span>
@@ -161,6 +165,12 @@
                         <a href="{{ route('products.create') }}">
                             <span class="nav-icon text-info"><i data-feather='tag'></i></span>
                             <span class="nav-text">Product</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('test-prices.create') }}">
+                            <span class="nav-icon text-info"><i data-feather='dollar-sign'></i></span>
+                            <span class="nav-text">Biaya Uji</span>
                         </a>
                     </li>
                     @endif

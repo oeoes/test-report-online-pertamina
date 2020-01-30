@@ -27,4 +27,10 @@ class UserController extends Controller
 
         return back()->with(['status' => true, 'message' => 'User invited, waiting for confirmation']);
     }
+
+    // sebenernya parameternya email bukan id
+    public function show($id) {
+        $user = User::where('email', $id)->first();
+        return $user;
+    }
 }

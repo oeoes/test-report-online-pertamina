@@ -96,7 +96,7 @@ class SpesificReportController extends BaseController
 
         
         // buat parent data
-        $single_data = $this->singleData($id, $date, $type);
+        $single_data = $this->singleData($id, $type);
         
         // get value of coq
         $data = $this->data($id, $date, $type);

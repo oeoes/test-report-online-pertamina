@@ -13,7 +13,7 @@ class TestReportController extends Controller
 
     public function index() {
         $master = TestReport::where('master', 'true')->latest()->get();
-        return view('app.a3.master-data', ['master' => $master, 'option' => $this->option]);
+        return view('app.a3.master-data', ['master' => $master, 'option' => $this->option, 'user' => auth()->user()->email]);
     }
 
     // create master data

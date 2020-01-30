@@ -8,7 +8,7 @@ use App\TestRequest;
 class TestRequestController extends Controller
 {
     public function index() {
-        return view('app.a1.pengantar-sample');
+        return view('app.a1.pengantar-sample', [ 'user' => auth()->user()->email]);
     }
 
     public function formatNomorSurat($no_awal, $sampler) {
@@ -60,6 +60,7 @@ class TestRequestController extends Controller
             'pengambil_sample' => request('pengambil_sample'),
             'tgl' => request('tgl'),
             'waktu' => request('waktu'),
+            'approved_by' => auth()->user()->email,
             'jenis_test' => request('jenis_test'),
             'progress' => 'waiting',
             'status' => 'pending',

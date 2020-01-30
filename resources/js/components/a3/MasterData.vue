@@ -11,7 +11,9 @@
             </div>
             <div class="col-md-2">
                 <div class="form-group">
-                    <input v-model="parameter" type="text" class="form-control" placeholder="Parameter..." required>
+                    <select  v-model="parameter" class="custom-select">
+                        <option v-for="(param, index) in parameter_uji" :value="param.id" :key="index">{{ param.parameter }}</option>
+                    </select>
                 </div>                                
             </div>
             <div class="col-md-2">
@@ -159,6 +161,7 @@ export default {
             reload: true,
             products: [],
             master_data: [],
+            parameter_uji: [],
             // update var
             up_product_id: '',
             up_parameter: '',
@@ -182,6 +185,15 @@ export default {
             axios.get('api/products')
             .then(response => {
                 this.products = response.data                          
+            })
+        },
+        get_param() {
+            axios.get('api/test-prices')
+            .then(response => {
+                this.parameter_uji = response.data               
+            })
+            .catch(error => {
+                console.log(error);
             })
         },
         get_data() {
@@ -246,11 +258,15 @@ export default {
                     metode: this.metode,
                     unit: this.unit,
                     limit_min: this.limit_min,
-                    limit_max: this.limit_max
+                    limit_max: this.limit_max,
+                    test_price_id: this.parameter,
+                    email: localStorage.getItem('email')
                 }
             })
             .then(response => {
-                this.master_data.push(response.data.new_data)                
+                this.master_data.push(response.data.new_data)   
+                console.log(response);
+                             
             })
             .catch(error => {
                 console.log(error);                
@@ -260,6 +276,7 @@ export default {
     created() {
         this.get_products()
         this.get_data()
+        this.get_param()
 
         if (localStorage.getItem('reloaded')) {
             localStorage.removeItem('reloaded');

@@ -13,10 +13,36 @@ Custom css
 
 .line{
     position: absolute;
-    width: 40%;
+    width: 50%;
     top: 20px;
     left: 30px;
     border-bottom: 2px dotted #ff3399;
+}
+
+.tracking {
+    position: absolute;
+    width: 98%;
+    height: 500px;
+    z-index: 1001;
+    left: 1%;
+    top: 0;
+    background: rgba(0, 0, 0, .7);
+    color: white;
+    padding-top: 230px;
+    font-size: 1.5rem;
+    text-align: center
+}
+
+@media(min-width: 375px) {
+    .line {
+        width: 20%
+    }
+    
+}
+@media(max-width: 375px) {
+    .tracking {
+        font-size: 1rem
+    }
 }
 
 .w-20{

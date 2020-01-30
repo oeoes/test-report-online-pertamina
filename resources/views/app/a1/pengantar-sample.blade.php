@@ -154,7 +154,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <img src="{{ asset('images/sample.svg') }}" alt="" style="max-width: 100%">
+                            <img src="{{ asset('images/golab1.png') }}" alt="" style="max-width: 100%">
                         </div>
                     </div>
                 </div>
@@ -175,3 +175,9 @@
 
 @endsection
 
+@section('custom-js')
+<script>
+    var email = {!! json_encode($user) !!}
+    window.localStorage.setItem('email', email)
+</script>
+@endsection

@@ -24,30 +24,17 @@ class BaseController extends Controller
         }
     }
 
-    public function singleData($id, $date, $type) {
-        $query = DB::table('products');
+    public function singleData($id, $type) {
         if($type == 'coq') {
-            $push_query = $query->join('coq_reports', 'coq_reports.product_id', '=', 'products.id')
-                ->select('products.id', 'products.product_name', DB::raw('DATE(coq_reports.created_at) as date'))
-                ->where('coq_reports.id', $id)
-                ->where(DB::raw('DATE(coq_reports.created_at)'), $date);
+            $push_query = CoqReport::where('product_id', $id)->first()->product;
         }else if($type == 'before') {
-            $push_query = $query->join('before_reports', 'before_reports.product_id', '=', 'products.id')
-                ->select('products.id', 'products.product_name', DB::raw('DATE(before_reports.created_at) as date'))
-                ->where('before_reports.id', $id)
-                ->where(DB::raw('DATE(before_reports.created_at)'), $date);
+            $push_query = BeforeReport::where('product_id', $id)->first()->product;
         }else if($type == 'after') {
-            $push_query = $query->join('after_reports', 'after_reports.product_id', '=', 'products.id')
-                ->select('products.id', 'products.product_name', DB::raw('DATE(after_reports.created_at) as date'))
-                ->where('after_reports.id', $id)
-                ->where(DB::raw('DATE(after_reports.created_at)'), $date);
+            $push_query = AfterReport::where('product_id', $id)->first()->product;
         }else {
-            $push_query = $query->join('distribution_reports', 'distribution_reports.product_id', '=', 'products.id')
-                ->select('products.id', 'products.product_name', DB::raw('DATE(distribution_reports.created_at) as date'))
-                ->where('distribution_reports.id', $id)
-                ->where(DB::raw('DATE(distribution_reports.created_at)'), $date);
+            $push_query = DistributionReport::where('product_id', $id)->first()->product;
         }
-        return $push_query->distinct()->orderBy('date', 'DESC')->get();
+        return $push_query;
     }
 
     public function keterangan($id, $date, $type) {

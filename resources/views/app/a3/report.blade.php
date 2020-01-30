@@ -42,7 +42,8 @@
                                         </div>
                                     </div>
 
-                                    <table id="table" class="table table-theme v-middle mt-3" data-plugin="bootstrapTable"
+                                    <div class="table-responsive">
+                                        <table id="table" class="table table-theme v-middle mt-3" data-plugin="bootstrapTable"
                                         data-toolbar="#toolbar" data-search="true" data-search-align="left" data-show-export="true"
                                         data-show-columns="true" data-detail-view="false" data-mobile-responsive="true"
                                         data-pagination="true" data-page-list="[10, 25, 50, 100, ALL]">
@@ -62,37 +63,37 @@
                                             @foreach($data as $k => $d)
                                             <tr class="" data-id="17">
                                                 <td>
-                                                    <span class="item-amount d-none d-sm-block text-sm ">
+                                                    <span class="item-amount d-sm-block text-sm ">
                                                         {{ $d->parameter }}
                                                     </span>
                                                 </td>
                                                 <td>
-                                                    <span class="item-amount d-none d-sm-block text-sm">
+                                                    <span class="item-amount d-sm-block text-sm">
                                                         {{ $d->metode }}
                                                     </span>
                                                 </td>
                                                 <td>
-                                                    <span class="item-amount d-none d-sm-block text-sm ">
+                                                    <span class="item-amount d-sm-block text-sm ">
                                                         {{ $d->unit }}
                                                     </span>
                                                 </td>
                                                 <td>
-                                                    <span class="item-amount d-none d-sm-block text-sm">
+                                                    <span class="item-amount d-sm-block text-sm">
                                                         {{ $d->limit_min }}
                                                     </span>
                                                 </td>
                                                 <td>
-                                                    <span class="item-amount d-none d-sm-block text-sm">
+                                                    <span class="item-amount d-sm-block text-sm">
                                                         {{ $d->limit_max }}
                                                     </span>
                                                 </td>
                                                 <td>
-                                                    <span class="item-amount d-none d-sm-block text-sm">
+                                                    <span class="item-amount d-sm-block text-sm">
                                                         <span class="badge badge-info text-uppercase p-1"></span>
                                                     </span>
                                                 </td>
                                                 <td>
-                                                    <span class="item-amount d-none d-sm-block text-sm">
+                                                    <span class="item-amount d-sm-block text-sm">
                                                         {{ $value[$k] }}
                                                     </span>
                                                 </td>
@@ -102,6 +103,7 @@
                                             
                                         </tbody>
                                     </table>
+                                    </div>
 
                                 </div>
                             </div>

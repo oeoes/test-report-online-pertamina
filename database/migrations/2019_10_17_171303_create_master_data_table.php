@@ -16,6 +16,7 @@ class CreateMasterDataTable extends Migration
         Schema::create('master_data', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('test_price_id');
             $table->string('parameter');
             $table->string('metode');
             $table->string('unit');
@@ -25,6 +26,7 @@ class CreateMasterDataTable extends Migration
             $table->timestamps();
 
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('test_price_id')->references('id')->on('test_prices')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

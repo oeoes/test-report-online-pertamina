@@ -36,7 +36,7 @@
                         <div class="col-sm-4 col-md-4">
                             <div class="card">
                                 <div class="card-header">
-                                    Customize Line Chart
+                                    Summary
                                 </div>
                                 <div class="card-body" style="min-height: 200px">
                                     <form action="">
@@ -44,32 +44,30 @@
                                             <label>Parameter</label>
                                             <select name="" id="select_parameter" class="custom-select">
                                                 @foreach($parameter as $p)
-                                                <option value="{{ $p->parameter }}">{{ $p->parameter }}</option>
+                                                <option value="{{ $p->id }}">{{ $p->parameter }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label>Produk</label>
-                                            <select name="" id="select_product" class="custom-select">
-                                                @foreach($product as $p)
-                                                <option value="{{ $p->id }}">{{ $p->product_name }}</option>
+                                            <select name="" id="product_id" class="custom-select">
+                                                @foreach($product as $pr)
+                                                <option value="{{ $pr->id }}">{{ $pr->product_name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label>Date Release</label>
-                                            <input id="select_date" type="date" class="form-control">
+                                            <label>From</label>
+                                            <input id="select_date_from" type="date" class="form-control">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>To</label>
+                                            <input id="select_date_to" type="date" class="form-control">
                                         </div>
                                     </form>
                                     <div id="change" class="btn btn-primary circle">View <i class="ml-2" data-feather="search"></i></div>
-                                    <div class="card shadow p-3 mt-3">
-                                        Detail
-                                        <hr>
-                                        <div><i data-feather='cpu'></i> : <span class="badge badge-success text-uppercase p-1"><span id="parameter"></span></span></div>
-                                        <div><i data-feather='box'></i> : <span class="badge badge-info text-uppercase p-1"><span id="produk"></span></span></div>
-                                        <div><i data-feather='user'></i> : <span id="user"></span></div>
-                                        <div><i data-feather='calendar'></i> : <span id="date"></span></div>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -89,6 +87,22 @@
                                         <div class="form-group">
                                             <label>To</label>
                                             <input id="coq_to" type="date" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Parameter</label>
+                                            <select name="" id="coq_param_id" class="custom-select">
+                                                @foreach($parameter as $p)
+                                                <option value="{{ $p->id }}">{{ $p->parameter }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Produk</label>
+                                            <select name="" id="coq_product_id" class="custom-select">
+                                                @foreach($product as $pr)
+                                                <option value="{{ $pr->id }}">{{ $pr->product_name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </form>
                                     <div id="change_coq" class="btn btn-primary circle">View <i class="ml-2" data-feather="search"></i></div>
@@ -136,6 +150,22 @@
                                             <label>To</label>
                                             <input id="before_to" type="date" class="form-control">
                                         </div>
+                                        <div class="form-group">
+                                            <label>Parameter</label>
+                                            <select name="" id="before_param_id" class="custom-select">
+                                                @foreach($parameter as $p)
+                                                <option value="{{ $p->id }}">{{ $p->parameter }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Produk</label>
+                                            <select name="" id="before_product_id" class="custom-select">
+                                                @foreach($product as $pr)
+                                                <option value="{{ $pr->id }}">{{ $pr->product_name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </form>
                                     <div id="change_before" class="btn btn-primary circle">View <i class="ml-2" data-feather="search"></i></div>
                                 </div>
@@ -159,6 +189,22 @@
                                         <div class="form-group">
                                             <label>To</label>
                                             <input id="after_to" type="date" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Parameter</label>
+                                            <select name="" id="after_param_id" class="custom-select">
+                                                @foreach($parameter as $p)
+                                                <option value="{{ $p->id }}">{{ $p->parameter }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Produk</label>
+                                            <select name="" id="after_product_id" class="custom-select">
+                                                @foreach($product as $pr)
+                                                <option value="{{ $pr->id }}">{{ $pr->product_name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </form>
                                     <div id="change_after" class="btn btn-primary circle">View <i class="ml-2" data-feather="search"></i></div>
@@ -205,6 +251,22 @@
                                             <label>To</label>
                                             <input id="distribution_to" type="date" class="form-control">
                                         </div>
+                                        <div class="form-group">
+                                            <label>Parameter</label>
+                                            <select name="" id="distribution_param_id" class="custom-select">
+                                                @foreach($parameter as $p)
+                                                <option value="{{ $p->id }}">{{ $p->parameter }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Produk</label>
+                                            <select name="" id="distribution_product_id" class="custom-select">
+                                                @foreach($product as $pr)
+                                                <option value="{{ $pr->id }}">{{ $pr->product_name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </form>
                                     <div id="change_distribution" class="btn btn-primary circle">View <i class="ml-2" data-feather="search"></i></div>
                                 </div>
@@ -229,4 +291,11 @@
     <!-- ############ Footer END-->
 </div>
 
+@endsection
+
+@section('custom-js')
+<script>
+    var email = {!! json_encode($user) !!}
+    window.localStorage.setItem('email', email)
+</script>
 @endsection

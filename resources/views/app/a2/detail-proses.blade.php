@@ -61,13 +61,14 @@
                             <table class="table table-theme table-row v-middle">
                                 <thead>
                                     <tr>
-                                        <th class="text-muted">Owner</th>
+                                        <th class="text-muted">Pemohon</th>
                                         <th class="text-muted sortable" data-toggle-class="asc">Name</th>
                                         <th class="text-muted"><span class="d-none d-sm-block">Produk</span></th>
                                         <th class="text-muted"><span class="d-none d-sm-block">Asal Sample</span></th>
                                         <th class="text-muted"><span class="d-none d-sm-block">Jenis Sample</span></th>
                                         <th class="text-muted"><span class="d-none d-sm-block">Rencana/Tgl Pengambilan</span></th>
                                         <th class="text-muted"><span class="d-none d-sm-block">Jenis Test</span></th>
+                                        <th class="text-muted"><span class="d-none d-sm-block">Pemohon</span></th>
                                         <th class="text-muted"><span class="d-none d-sm-block">Progress</span></th>
                                         <th class="text-muted"><span class="d-none d-sm-block">Status</span></th>
                                     </tr>
@@ -112,6 +113,11 @@
                                         <td>
                                             <span class="item-amount d-none d-sm-block text-sm">
                                                 {{ ucwords($d->jenis_test) }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="item-amount d-none d-sm-block text-sm">
+                                                {{ $d->approved_by }}
                                             </span>
                                         </td>
                                         <td>

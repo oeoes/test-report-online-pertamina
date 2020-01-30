@@ -14,6 +14,7 @@ import CoqReport from './components/a3/CoqReport'
 import BeforeReport from './components/a3/BeforeReport'
 import AfterReport from './components/a3/AfterReport'
 import DistributionReport from './components/a3/DistributionReport'
+import BiayaUji from './components/a3/BiayaUji'
 
 
 const app = new Vue({
@@ -25,6 +26,7 @@ const app = new Vue({
         'coq-report': CoqReport,
         'before-report': BeforeReport,
         'after-report': AfterReport,
-        'distribution-report': DistributionReport
+        'distribution-report': DistributionReport,
+        'biaya-uji': BiayaUji
     }
 });

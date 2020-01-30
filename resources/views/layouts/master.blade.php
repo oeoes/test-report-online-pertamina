@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Golab | Pertamina</title>
@@ -15,6 +15,7 @@
     <link href="{{ asset('images/favicon.png') }}" rel="icon">
     <link href="{{ asset('images/favicon.png') }}" rel="apple-touch-icon">
     @yield('custom-css')
+    @yield('js-leaflet')
 </head>
 <body class="layout-row">
     @yield('content')
@@ -25,7 +26,7 @@
     <script src="{{ asset('basik/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <!-- ajax page -->
     <!-- <script src="{{ asset('basik/libs/pjax/pjax.min.js') }}"></script> -->
-    <script src="{{ asset('basik/assets/js/ajax.js') }}"></script>
+    <!-- <script src="{{ asset('basik/assets/js/ajax.js') }}"></script> -->
     <!-- lazyload plugin -->
     <script src="{{ asset('basik/assets/js/lazyload.config.js') }}"></script>
     <script src="{{ asset('basik/assets/js/lazyload.js') }}"></script>
@@ -38,7 +39,8 @@
     <!-- theme -->
     <script src="{{ asset('basik/assets/js/theme.js') }}"></script>
     <script src="{{ asset('basik/assets/js/utils.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js" charset="utf-8"></script>
+    <script src="{{ asset('js/Chart.min.js') }}"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js" charset="utf-8"></script> -->
     <!-- endbuild -->
 
     <!-- chart -->

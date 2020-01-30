@@ -1,13 +1,15 @@
+var baseUrl = "http://localhost:8000/";
+
 // url summary
-var url = "http://localhost:8000/app/graphics/category";
+var url = baseUrl+"app/graphics/category";
 // url before
-var before_url = "http://localhost:8000/app/graphics/before";
+var before_url = baseUrl+"app/graphics/before";
 // url coq
-var coq_url = "http://localhost:8000/app/graphics/coq";
+var coq_url = baseUrl+"app/graphics/coq";
 // url after
-var after_url = "http://localhost:8000/app/graphics/after";
+var after_url = baseUrl+"app/graphics/after";
 // url distribution
-var distribution_url = "http://localhost:8000/app/graphics/distribution";
+var distribution_url = baseUrl+"app/graphics/distribution";
 
 // summary
 var coq = '';
@@ -37,25 +39,38 @@ var after_param = new Array();
 var distribution_value = new Array();
 var distribution_date = new Array();
 var distribution_param = new Array();
+var distribution_min = '';
+var distribution_max = '';
 
 
 // change summary when clicked
 $('#change').on('click', function () {
-    $.get(url + '/' + $('#select_parameter').val() + '/'+ $('#select_date').val(), function (response) {
-        console.log(response);        
-        coq = response.coq.value;
-        before = response.before.value;
-        after = response.after.value;
-        distribution = response.distribution.value;
-        min = response.data.limit_min;
-        max = response.data.limit_max;
-        parameter = response.data.parameter;
+    $.get(url + '/' + $('#select_parameter').val() + '/' + $('#select_date_from').val() + '/' + $('#select_date_to').val() + '/' + $('#product_id').val(), function (response) {
+        
+        if (response.coq != null) {
+            coq = response.coq.value;
+            $('#coq_date').text('COQ ' + response.coq.created_at);
+        }
+        if (response.before != null) {
+            before = response.before.value;
+            $('#before_date').text('Before ' + response.before.created_at);
+        }
+        if (response.after != null) {
+            after = response.after.value;
+            $('#after_date').text('After ' + response.after.created_at);
+        }
+        if (response.distribution != null) {
+            distribution = response.distribution.value;
+            $('#distribution_date').text('Penyaluran ' + response.distribution.created_at);
+        }
 
-        // write detail
-        $('#produk').text('Pertalite');
-        $('#parameter').text(parameter);
-        $('#namaparameter').text(parameter);
-        $('#date').text('date');
+        if (response.info != null) {
+            min = response.info.limit_min;
+            max = response.info.limit_max;
+            parameter = response.info.parameter
+
+            $('#namaparameter').text(parameter)
+        }       
         
 
         var ctx_change = document.getElementById("chart-line").getContext('2d');
@@ -83,7 +98,7 @@ $('#change').on('click', function () {
                         pointBackgroundColor: 'rgba(255,255,255, 1)',
                         borderColor: 'rgba(219, 20, 196, 0.74)',
                         backgroundColor: 'rgba(219, 20, 196, 0.3)',
-                        fill: false,
+                        fill: true,
                     },
                     {
                         label: 'Max (' + max + ')',
@@ -113,32 +128,58 @@ $('#change').on('click', function () {
 
 // change before when clicked
 $('#change_before').on('click', function () {
-    $.get(before_url + '/' + $('#before_from').val() + '/' + $('#before_to').val(), function (response) {
+    $.get(before_url + '/' + $('#before_from').val() + '/' + $('#before_to').val() + '/' + $('#before_product_id').val() + '/' + $('#before_param_id').val(), function (response) {
+        if (response[0] != null) {
+            before_min = response[0].limit_min
+        }
+
+        if (response[0] != null) {
+            before_max = response[0].limit_max
+        }
         before_value = []
-        before_date = []    
-        before_param = []
+        before_date = []
 
         response.forEach(function (data) {
-            before_value.push(data.before)
+            before_value.push(data.value)
             before_date.push(data.date)
-            before_param.push(data.parameter)
         });
 
         var ctx = document.getElementById("before").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: before_param,
-                datasets: [{
-                    label: 'Before',
-                    data: before_value,
-                    borderWidth: 2,
-                    spanGaps: true,
-                    pointBackgroundColor: 'rgba(255,255,255, 1)',
-                    borderColor: 'rgba(20, 60, 219, 0.74)',
-                    backgroundColor: 'rgba(20, 60, 219, 0.3)',
-                    fill: true
-                }]
+                labels: before_date,
+                datasets: [
+                    {
+                        label: 'Min (' + before_min + ')',
+                        data: [before_min, before_min, before_min, before_min, before_min, before_min, before_min, before_min, before_min, before_min],
+                        borderWidth: 1,
+                        spanGaps: true,
+                        pointBackgroundColor: 'rgba(255,255,255, 0)',
+                        pointBorderColor: 'rgba(0,0,0,0)',
+                        borderColor: 'rgba(20, 60, 219, 0.74)',
+                        backgroundColor: 'rgba(20, 60, 219, 0.3)',
+                        fill: false,
+                    }, {
+                        label: 'before',
+                        data: before_value,
+                        borderWidth: 2,
+                        spanGaps: true,
+                        pointBackgroundColor: 'rgba(255,255,255, 1)',
+                        borderColor: 'rgba(219, 20, 20, 0.74)',
+                        backgroundColor: 'rgba(219, 20, 20, 0.3)',
+                        fill: true
+                    }, {
+                        label: 'Max (' + before_max + ')',
+                        data: [before_max, before_max, before_max, before_max, before_max, before_max, before_max, before_max, before_max, before_max],
+                        borderWidth: 1,
+                        spanGaps: true,
+                        pointBackgroundColor: 'rgba(255,255,255, 0)',
+                        pointBorderColor: 'rgba(0,0,0,0)',
+                        borderColor: 'rgba(20, 60, 219, 0.74)',
+                        backgroundColor: 'rgba(20, 60, 219, 0.3)',
+                        fill: false,
+                    },]
             },
             options: {
                 scales: {
@@ -155,32 +196,58 @@ $('#change_before').on('click', function () {
 
 // change coq when clicked
 $('#change_coq').on('click', function () {
-    $.get(coq_url + '/' + $('#coq_from').val() + '/' + $('#coq_to').val(), function (response) {
+    $.get(coq_url + '/' + $('#coq_from').val() + '/' + $('#coq_to').val() + '/' + $('#coq_product_id').val() + '/' + $('#coq_param_id').val(), function (response) {
+        if (response[0] != null) {
+            coq_min = response[0].limit_min
+        }
+
+        if (response[0] != null) {
+            coq_max = response[0].limit_max
+        }
         coq_value = []
         coq_date = []
-        coq_param = []
 
         response.forEach(function (data) {
-            coq_value.push(data.coq)
-            coq_date.push(data.date)      
-            coq_param.push(data.parameter)
+            coq_value.push(data.value)
+            coq_date.push(data.date)
         });
 
         var ctx = document.getElementById("coq").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: coq_param,
-                datasets: [{
-                    label: 'COQ',
-                    data: coq_value,
-                    borderWidth: 2,
-                    spanGaps: true,
-                    pointBackgroundColor: 'rgba(255,255,255, 1)',
-                    borderColor: 'rgba(219, 20, 196, 0.74)',
-                    backgroundColor: 'rgba(219, 20, 196, 0.3)',
-                    fill: true
-                }]
+                labels: coq_date,
+                datasets: [
+                    {
+                        label: 'Min (' + coq_min + ')',
+                        data: [coq_min, coq_min, coq_min, coq_min, coq_min, coq_min, coq_min, coq_min, coq_min, coq_min],
+                        borderWidth: 1,
+                        spanGaps: true,
+                        pointBackgroundColor: 'rgba(255,255,255, 0)',
+                        pointBorderColor: 'rgba(0,0,0,0)',
+                        borderColor: 'rgba(20, 60, 219, 0.74)',
+                        backgroundColor: 'rgba(20, 60, 219, 0.3)',
+                        fill: false,
+                    }, {
+                        label: 'COQ',
+                        data: coq_value,
+                        borderWidth: 2,
+                        spanGaps: true,
+                        pointBackgroundColor: 'rgba(255,255,255, 1)',
+                        borderColor: 'rgba(219, 20, 20, 0.74)',
+                        backgroundColor: 'rgba(219, 20, 20, 0.3)',
+                        fill: true
+                    }, {
+                        label: 'Max (' + coq_max + ')',
+                        data: [coq_max, coq_max, coq_max, coq_max, coq_max, coq_max, coq_max, coq_max, coq_max, coq_max],
+                        borderWidth: 1,
+                        spanGaps: true,
+                        pointBackgroundColor: 'rgba(255,255,255, 0)',
+                        pointBorderColor: 'rgba(0,0,0,0)',
+                        borderColor: 'rgba(20, 60, 219, 0.74)',
+                        backgroundColor: 'rgba(20, 60, 219, 0.3)',
+                        fill: false,
+                    },]
             },
             options: {
                 scales: {
@@ -197,31 +264,58 @@ $('#change_coq').on('click', function () {
 
 // change after when clicked
 $('#change_after').on('click', function () {
-    $.get(after_url + '/' + $('#after_from').val() + '/' + $('#after_to').val(), function (response) {
+    $.get(after_url + '/' + $('#after_from').val() + '/' + $('#after_to').val() + '/' + $('#after_product_id').val() + '/' + $('#after_param_id').val(), function (response) {
+        if (response[0] != null) {
+            after_min = response[0].limit_min
+        }
+
+        if (response[0] != null) {
+            after_max = response[0].limit_max
+        }
         after_value = []
         after_date = []
-        after_param = []
 
         response.forEach(function (data) {
-            after_value.push(data.after)
-            after_param.push(data.parameter)
+            after_value.push(data.value)
+            after_date.push(data.date)
         });
 
         var ctx = document.getElementById("after").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: after_param,
-                datasets: [{
-                    label: 'After',
-                    data: after_value,
-                    borderWidth: 2,
-                    spanGaps: true,
-                    pointBackgroundColor: 'rgba(255,255,255, 1)',
-                    borderColor: 'rgba(20, 219, 160, 0.74)',
-                    backgroundColor: 'rgba(20, 219, 160, 0.3)',
-                    fill: true
-                }]
+                labels: after_date,
+                datasets: [
+                    {
+                        label: 'Min (' + after_min + ')',
+                        data: [after_min, after_min, after_min, after_min, after_min, after_min, after_min, after_min, after_min, after_min],
+                        borderWidth: 1,
+                        spanGaps: true,
+                        pointBackgroundColor: 'rgba(255,255,255, 0)',
+                        pointBorderColor: 'rgba(0,0,0,0)',
+                        borderColor: 'rgba(20, 60, 219, 0.74)',
+                        backgroundColor: 'rgba(20, 60, 219, 0.3)',
+                        fill: false,
+                    }, {
+                        label: 'After',
+                        data: after_value,
+                        borderWidth: 2,
+                        spanGaps: true,
+                        pointBackgroundColor: 'rgba(255,255,255, 1)',
+                        borderColor: 'rgba(219, 20, 20, 0.74)',
+                        backgroundColor: 'rgba(219, 20, 20, 0.3)',
+                        fill: true
+                    }, {
+                        label: 'Max (' + after_max + ')',
+                        data: [after_max, after_max, after_max, after_max, after_max, after_max, after_max, after_max, after_max, after_max],
+                        borderWidth: 1,
+                        spanGaps: true,
+                        pointBackgroundColor: 'rgba(255,255,255, 0)',
+                        pointBorderColor: 'rgba(0,0,0,0)',
+                        borderColor: 'rgba(20, 60, 219, 0.74)',
+                        backgroundColor: 'rgba(20, 60, 219, 0.3)',
+                        fill: false,
+                    },]
             },
             options: {
                 scales: {
@@ -238,22 +332,40 @@ $('#change_after').on('click', function () {
 
 // change distribution when clicked
 $('#change_distribution').on('click', function () {
-    $.get(distribution_url + '/' + $('#distribution_from').val() + '/' + $('#distribution_to').val(), function (response) {
+    $.get(distribution_url + '/' + $('#distribution_from').val() + '/' + $('#distribution_to').val() + '/' + $('#distribution_product_id').val() +'/'+ $('#distribution_param_id').val(), function (response) {
+        if (response[0] != null) {
+            distribution_min = response[0].limit_min
+        }
+        
+        if (response[0] != null) {
+            distribution_max = response[0].limit_max
+        }       
+        
         distribution_value = []
         distribution_date = []
-        distribution_param = []
 
         response.forEach(function (data) {
-            distribution_value.push(data.distribution)
-            distribution_param.push(data.parameter)
+            distribution_value.push(data.value)
+            distribution_date.push(data.date)
         });
 
         var ctx = document.getElementById("distribution").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: distribution_param,
-                datasets: [{
+                labels: distribution_date,
+                datasets: [
+                    {
+                        label: 'Min (' + distribution_min + ')',
+                        data: [distribution_min, distribution_min, distribution_min, distribution_min, distribution_min, distribution_min, distribution_min, distribution_min, distribution_min, distribution_min],
+                        borderWidth: 1,
+                        spanGaps: true,
+                        pointBackgroundColor: 'rgba(255,255,255, 0)',
+                        pointBorderColor: 'rgba(0,0,0,0)',
+                        borderColor: 'rgba(20, 60, 219, 0.74)',
+                        backgroundColor: 'rgba(20, 60, 219, 0.3)',
+                        fill: false,
+                    },{
                     label: 'Distribution',
                     data: distribution_value,
                     borderWidth: 2,
@@ -262,7 +374,17 @@ $('#change_distribution').on('click', function () {
                     borderColor: 'rgba(219, 20, 20, 0.74)',
                     backgroundColor: 'rgba(219, 20, 20, 0.3)',
                     fill: true
-                }]
+                    }, {
+                        label: 'Max (' + distribution_max + ')',
+                        data: [distribution_max, distribution_max, distribution_max, distribution_max, distribution_max, distribution_max, distribution_max, distribution_max, distribution_max, distribution_max],
+                        borderWidth: 1,
+                        spanGaps: true,
+                        pointBackgroundColor: 'rgba(255,255,255, 0)',
+                        pointBorderColor: 'rgba(0,0,0,0)',
+                        borderColor: 'rgba(20, 60, 219, 0.74)',
+                        backgroundColor: 'rgba(20, 60, 219, 0.3)',
+                        fill: false,
+                    },]
             },
             options: {
                 scales: {
@@ -283,48 +405,33 @@ $('#change_distribution').on('click', function () {
 // on page load
 $(document).ready(function () {
     $.get(url, function (response) {
-        console.log(response);
-        coq = response.coq.value;
-        before = response.before.value;
-        after = response.after.value;
-        distribution = response.distribution.value;
-        min = response.data.limit_min;
-        max = response.data.limit_max;
-        parameter = response.data.parameter;
-        
-        
-        // write detail
-        $('#produk').text('Pertalite');
-        $('#parameter').text(parameter);
-        $('#namaparameter').text(parameter);
-        $('#date').text('date');
+        if (response.coq != null) {
+            coq = response.coq.value;
+            $('#coq_date').text('COQ '+response.coq.created_at);
+        }
+        if (response.before != null) {
+            before = response.before.value;
+            $('#before_date').text('Before '+response.before.created_at);
+        }
+        if (response.after != null) {
+            after = response.after.value;
+            $('#after_date').text('After '+response.after.created_at);
+        }
+        if (response.distribution != null) {
+            distribution = response.distribution.value;
+            $('#distribution_date').text('Penyaluran '+response.distribution.created_at);
+        }
 
-
-        // assign coq array
-        // response.coq.forEach(function (data) {
-        //     coq_value.push(data.coq)
-        //     coq_date.push(data.date)
-        //     coq_param.push(data.parameter)
-        // });
-
-        // assign before array
-        // response.before.forEach(function (data) {
-        //     before_value.push(data.before)
-        //     before_date.push(data.date)
-        //     before_param.push(data.parameter)
-        // });
-
-        // assign after array
-        // response.after.forEach(function (data) {
-        //     after_value.push(data.after)
-        //     after_param.push(data.parameter)
-        // });
-
-        // assign distribution array
-        // response.distribution.forEach(function (data) {
-        //     distribution_value.push(data.distribution)
-        //     distribution_param.push(data.parameter)
-        // });
+        if (response.data != null) {
+            min = response.data.limit_min;
+            max = response.data.limit_max;
+            parameter = response.data.parameter;
+            
+            // write detail
+            $('#produk').text(response.product.product_name);
+            $('#parameter').text(parameter);
+            $('#namaparameter').text(parameter);
+        }
 
         // summary
         var ctx = document.getElementById("chart-line").getContext('2d');
@@ -365,36 +472,6 @@ $(document).ready(function () {
                         backgroundColor: 'rgba(20, 60, 219, 0.3)',
                         fill: false,
                     },
-                    // {
-                    //     label: 'Before',
-                    //     data: before,
-                    //     borderWidth: 2,
-                    //     spanGaps: true,
-                    //     pointBackgroundColor: 'rgba(255,255,255, 1)',
-                    //     borderColor: 'rgba(20, 60, 219, 0.74)',
-                    //     backgroundColor: 'rgba(20, 60, 219, 0.3)',
-                    //     fill: false
-                    // },
-                    // {
-                    //     label: 'After',
-                    //     data: after,
-                    //     borderWidth: 2,
-                    //     spanGaps: true,
-                    //     pointBackgroundColor: 'rgba(255,255,255, 1)',
-                    //     borderColor: 'rgba(20, 219, 160, 0.74)',
-                    //     backgroundColor: 'rgba(20, 219, 160, 0.3)',
-                    //     fill: false
-                    // },
-                    // {
-                    //     label: 'Distribution',
-                    //     data: distribution,
-                    //     borderWidth: 2,
-                    //     spanGaps: true,
-                    //     pointBackgroundColor: 'rgba(255,255,255, 1)',
-                    //     borderColor: 'rgba(219, 20, 20, 0.74)',
-                    //     backgroundColor: 'rgba(219, 20, 20, 0.3)',
-                    //     fill: false
-                    // },
                 ]
             },
             options: {

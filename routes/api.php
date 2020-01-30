@@ -13,13 +13,19 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('cors')->group(function() {
+    Route::resource('products', 'ProductController');
+    Route::resource('masters', 'MasterDataController');
+    Route::resource('coq-reports', 'CoqReportController');
+    Route::resource('before-reports', 'BeforeReportController');
+    Route::resource('after-reports', 'AfterReportController');
+    Route::resource('distribution-reports', 'DistributionReportController');
+    Route::resource('test-prices', 'TestPriceController');
 });
+Route::post('print/test-prices', 'TestPriceController@printTestPrice');
 
-Route::resource('products', 'ProductController');
-Route::resource('masters', 'MasterDataController');
-Route::resource('coq-reports', 'CoqReportController');
-Route::resource('before-reports', 'BeforeReportController');
-Route::resource('after-reports', 'AfterReportController');
-Route::resource('distribution-reports', 'DistributionReportController');
+Route::get('tracks/lookup/{user_id}/{request_id}', 'TruckLocationController@truckLookup');
+Route::get('tracks/locate/{user_id}/{request_id}', 'TruckLocationController@getLocation');
+Route::post('tracks/setloc', 'TruckLocationController@setLocation');
+
+Route::resource('users/tracking', 'UserController');

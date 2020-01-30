@@ -17,7 +17,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div @click="add_product" class="btn btn-primary circle pl-4 pr-4">Add</div>
+                    <div @click="add_product" class="btn btn-primary circle pl-4 pr-4">{{ txt_add }}</div>
                 </div>
                 <hr>
             </form>
@@ -40,11 +40,13 @@ export default {
     data() {
         return {
             product: '',
-            products: []
+            products: [],
+            txt_add: 'Add'
         }
     },
     methods: {
         add_product() {
+            this.txt_add = "Adding..."
             axios({
                 method: 'post',
                 url: 'api/products',
@@ -57,6 +59,9 @@ export default {
             })
             .catch(error => {
                 console.log(error);                
+            })
+            .finally(response => {
+                this.txt_add = "Add"
             })
         },
         get_products() {

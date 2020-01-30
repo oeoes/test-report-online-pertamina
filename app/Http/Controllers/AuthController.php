@@ -29,6 +29,8 @@ class AuthController extends Controller
             return redirect()->route('requests.index');
         }else if(auth()->user()->role == 'lv2') {
             return redirect()->route('reports.index');
+        }else if(auth()->user()->role == 'external') {
+            return redirect()->route('requests.index');
         }else {
             return redirect()->route('home');
         }
@@ -40,9 +42,11 @@ class AuthController extends Controller
     }
 
     public function home() {
-        $parameter = MasterData::latest()->get();
+        // $parameter = DB::table('master_data')->select('parameter', 'created_at')->latest()->distinct()->get();
+        $parameter = DB::table('test_prices')->select('id', 'parameter', 'created_at')->distinct()->latest()->get();
+        // $parameter = MasterData::latest()->distinct()->get();
         $product = Product::latest()->get();
-        return view('home')->with(['parameter' => $parameter, 'product' => $product]);
+        return view('home')->with(['parameter' => $parameter, 'product' => $product, 'user' => auth()->user()->email]);
     }
 
     public function joinPage() {

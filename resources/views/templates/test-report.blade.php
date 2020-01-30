@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Test Report</title>
@@ -78,11 +79,11 @@
     <div style="width: 100%; height: 1px; background: black; margin-top: 5px; margin-bottom: 15px"></div>
     
 
-
     <table style="width: 100%" class="ket">
         <tr>
             <td>Jenis Sample</td>
-            <td>: <strong>{{ strtoupper($title[0]->product_name) }}</strong></td>
+            
+            <td>: <strong>{{ strtoupper($title->product_name) }}</strong></td>
             <td>No. Test Report</td>
             <td>: <strong>{{ $keterangan->no_test }}</strong></td>
         </tr>
@@ -131,14 +132,14 @@
     </tbody>
     </table>
 
-    <p>Catatan :</p>
-    <ol>
+    <p style="font-size: 70%">Catatan :</p>
+    <ol style="font-size: 70%">
         <li>Sesuai keputusan Direktorat Jendral Minyak dan Gas Bumi No. 28.K/10/DJM.T/2016 tanggal 24 Februari 2016 tentang Standar dan Mutu (Spesifikasi) Bahan Bakar Minyak Solar 48 yang Dipasarkan di Dalam Negeri.</li>
         <li>Hasil uji hanya berkaitan dengan bahan yang diuji</li>
     </ol>
 
     <!-- ttd -->
-    <table align="right" border="0" style="margin-top: 50px">
+    <table align="right" border="0" style="margin-top: 10px">
         <tr border="0">
             <td>Jakarta Utara, {{ $date }} </td>
         </tr>

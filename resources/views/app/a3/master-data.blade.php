@@ -31,3 +31,10 @@
 </div>
 
 @endsection
+
+@section('custom-js')
+<script>
+    var email = {!! json_encode($user) !!}
+    window.localStorage.setItem('email', email)
+</script>
+@endsection

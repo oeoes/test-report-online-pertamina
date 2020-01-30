@@ -68,6 +68,7 @@
                                         <th class="text-muted"><span class="d-none d-sm-block">Jenis Sample</span></th>
                                         <th class="text-muted"><span class="d-none d-sm-block">Rencana/Tgl Pengambilan</span></th>
                                         <th class="text-muted"><span class="d-none d-sm-block">Jenis Test</span></th>
+                                        <th class="text-muted"><span class="d-none d-sm-block">Pemohon</span></th>
                                         <th class="text-muted"><span class="d-none d-sm-block">Status</span></th>
                                         <th class="text-muted"><span class="d-none d-sm-block">Action</span></th>
                                     </tr>
@@ -76,7 +77,7 @@
                                     @foreach($inbox as $i)
                                     <tr class=" v-middle" data-id="{{ $i->id }}">
                                         <td>
-                                            <div class="d-flex avatar-group">
+                                            <div class="d-flex avatar-group" style="margin: auto">
                                                 <a href="#" class="avatar w-32" data-toggle="tooltip" title=""
                                                     data-original-title="Libero">
                                                     <img src="{{ asset('basik/assets/img/a11.jpg') }}" alt=".">
@@ -116,14 +117,21 @@
                                         </td>
                                         <td>
                                             <span class="item-amount d-none d-sm-block text-sm">
-                                                <span class="badge badge-warning text-uppercase p-1">{{ $i->status }}</span>
+                                                {{ $i->approved_by }}
                                             </span>
                                         </td>
                                         <td>
                                             <span class="item-amount d-none d-sm-block text-sm">
+                                                <span class="badge badge-warning text-uppercase p-1">{{ $i->status }}</span>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            @if($i->status != 'approved')
+                                            <span class="item-amount d-none d-sm-block text-sm">
                                                <a href="{{ route('inboxes.show', $i->id) }}"><span class="badge badge-primary p-2 mb-1">Approve</span></a>
                                                 <a href="{{ route('inboxes.refuse', $i->id) }}"><span class="badge badge-danger p-2">Refuse</span></a>
                                             </span>
+                                            @endif
                                         </td>
                                     </tr>
                                     @endforeach
